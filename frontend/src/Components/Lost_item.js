@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.css";
 import { Button, Modal, Form, Spinner } from "react-bootstrap";
-
 function LostItem() {
   const [show, setShow] = useState(false);
   const token = localStorage.getItem("token");

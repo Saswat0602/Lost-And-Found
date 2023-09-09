@@ -6,37 +6,50 @@ import Navbar from "../Components/Navbar";
 import { Spinner } from "react-bootstrap";
 
 function Login() {
-  const [loading, setloading] = useState(false);
-  const [info, setinfo] = useState("");
-  const [user_info, setuser_info] = useState("");
-  const navigate = useNavigate(); 
+  const [loading, setLoading] = useState(false);
+  const [info, setInfo] = useState("");
+  const navigate = useNavigate();
 
   function login() {
-    setloading(true);
-    var payload = {
-      email: document.getElementById("email").value,
-      password: document.getElementById("password").value,
-    };
+    setLoading(true);
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
     axios({
       url: "http://localhost:5000/api/login",
       method: "POST",
-      data: payload,
+      data: {
+        email,
+        password,
+      },
     })
       .then((response) => {
-        console.log("Response is :", response);
-        if (response.data.user) {
-          setuser_info(response.data.user);
-          localStorage.setItem("token", response.token);
-          localStorage.setItem("user", JSON.stringify(response.data.user));
-          navigate("/feed", { state: { user: response.data.user } }); // Use navigate
+        console.log("Response is:", response);
+        if (response.data.token && response.data.userId) {
+          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("user", JSON.stringify(response.data.userId));
+          navigate("/feed");
         } else {
-          setinfo(response.data);
+          setInfo("Invalid credentials");
         }
       })
+      .then((response) => {
+        console.log("Response is:", response);
+        if (response.data.token && response.data.userId) {
+          localStorage.setItem("token", response.data.token);
+          console.log(response.data.token);
+          localStorage.setItem("user", JSON.stringify(response.data.userId));
+          console.log(response.data.userId);
+          navigate("/feed");
+        } else {
+          setInfo("Invalid credentials");
+        }
+      })
+
       .catch((error) => {
-        setloading(false);
+        setLoading(false);
         console.log(error);
-        console.log("Error occurred");
+        setInfo("Error occurred");
       });
   }
 

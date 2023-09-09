@@ -49,6 +49,8 @@ function ItemPage(props) {
   const handleCloseDelete = () => setShowDelete(false);
   const handleShowDelete = () => setShowDelete(true);
   const handleCloseprompt = () => setvalidateUser(false);
+
+  
   const handleShowprompt = (id, answer) => {
     console.log("Selected message ID is :", id);
     console.log("Answer is :", answer);

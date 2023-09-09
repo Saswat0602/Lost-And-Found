@@ -59,7 +59,7 @@ router.post("/api/login", async (req, res) => {
           res.status(200).json({
             msg: "user loggedin successfully",
             token: userToken,
-            userId: userId // Include the userId in the response
+            userId: userId 
           });
         }
       }

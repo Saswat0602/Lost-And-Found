@@ -8,8 +8,9 @@ import Response from "./Components/Response";
 import "bootstrap/dist/css/bootstrap.min.css";
 // import PrivateRoute from "./Components/privateroute";
 import Home from "./Components/Home";
-import ItemPage from "./Components/ItemPage";
+// import ItemPage from "./Components/ItemPage";
 import MyListings from "./Components/MyListings";
+import Feed from "./Components/Feed";
 
 // window.OneSignal = window.OneSignal || [];
 // const OneSignal = window.OneSignal;
@@ -36,8 +37,8 @@ function App() {
           <Route path="/log-in" element={<Login />} />
           <Route path="/mylistings" element={<MyListings />} />
           <Route path="/responses" element={<Response />} />
-          <Route path="/:item" element={<ItemPage />} />
-          {/* <PrivateRoute path="/feed" element={<Feed />} /> */}
+          {/* <Route path="/:item" element={<ItemPage />} /> */}
+          <Route path="/feed" element={<Feed />} />
         </Routes>
       </Router>
     </>

@@ -60,7 +60,7 @@ export default function Feed() {
           // .exec(function (err, story) {
           //   if (err) return err
           //   console.log('The author is %s', story);
-          //   // prints "The author is Ian Fleming"
+            // prints "The author is Ian Fleming"
           // });
           // console.log(item.itemPictures[0].img)
           if (item.type === "Lost" && item.status === true) {
@@ -204,7 +204,7 @@ export default function Feed() {
         setFound_item(Found_items);
       })
       .catch((err) => {
-        console.log("Error :", err);
+        console.log("Error :", err); 
       });
   }, []);
 

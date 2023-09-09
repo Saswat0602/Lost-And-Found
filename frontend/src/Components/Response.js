@@ -31,7 +31,7 @@ function Response() {
   const temp = [];
   useEffect(() => {
     Axios({
-      url: `https://lfs-backend.herokuapp.com/myresponses/${
+      url: `http://localhost:5000/api/myresponses/${
         JSON.parse(localStorage.getItem("user"))._id
       }`,
       method: "GET",
