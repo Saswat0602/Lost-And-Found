@@ -12,9 +12,9 @@ import list_item from "../img/list-item.svg";
 import notification from "../img/notification.svg";
 import github from "../img/github.svg";
 import linkedin from "../img/linkedin.svg";
-import instagram from "../img/instagram.svg";
+// import instagram from "../img/instagram.svg";
 import mail from "../img/mail.svg";
-import feature from "../img/feature.svg";
+// import feature from "../img/feature.svg";
 
 // import image from "../img/earth.svg";
 import { Container, Row, Button, Form } from "react-bootstrap";
@@ -66,7 +66,7 @@ export default function Home() {
     };
     Axios({
       method: "POST",
-      url: "https://lfs-backend.herokuapp.com/sendmessage",
+      url: "http://localhost:5000/api/sendmessagapie",
       data: data,
     })
       .then((res) => {

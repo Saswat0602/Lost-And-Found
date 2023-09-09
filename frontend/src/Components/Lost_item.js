@@ -19,17 +19,7 @@ function LostItem() {
   const handleShow = () => setShow(true);
   const handleClose = () => {
     setloading(true);
-    // const form = new FormData();
-    // form.append("name", itemname);
-    // form.append("description", description);
-    // form.append('itemPictures',itemname)
-    // const payload = {
-    //   name: itemname,
-    //   description: description,
-    //   type:type,
-    //   itemPictures: itemimage,
-    // };
-    // console.log(payload)
+  
     if (itemname && description && type) {
       // console.log("Item image : ", itemimage);
       const info = new FormData();
@@ -42,7 +32,7 @@ function LostItem() {
       });
 
       axios({
-        url: "https://lfs-backend.herokuapp.com/postitem",
+        url: "http://localhost:5000/api/postitem",
         method: "POST",
         data: info,
         headers: {
@@ -55,14 +45,13 @@ function LostItem() {
               "%"
           );
         },
-        // url: "http://localhost:5000/login"
       })
         .then((response) => {
           console.log(response);
         })
         .then(() => {
           // eslint-disable-next-line no-lone-blocks
-       
+
           setitemname("");
           setdescription("");
           settype("");
@@ -75,14 +64,12 @@ function LostItem() {
         .catch((err) => {
           setloading(false);
           console.log(err);
-         
         });
     } else {
      
     }
   };
   const temporaryShut = () => {
-   
     setShow(false);
   };
   return (

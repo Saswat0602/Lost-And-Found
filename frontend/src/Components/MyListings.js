@@ -63,7 +63,7 @@ export default function Feed() {
   useEffect(() => {
     // console.log("Test");
     Axios({
-      url: `https://lfs-backend.herokuapp.com/mylistings/${JSON.parse(localStorage.getItem("user"))._id}`,
+      url: `http://localhost:5000/api/mylistings/${JSON.parse(localStorage.getItem("user"))._id}`,
       method: "GET",
     })
       .then((response) => {

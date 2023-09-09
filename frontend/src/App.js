@@ -10,20 +10,23 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./Components/Home";
 import ItemPage from "./Components/ItemPage";
 import MyListings from "./Components/MyListings";
-window.OneSignal = window.OneSignal || [];
-const OneSignal = window.OneSignal;
+
+// window.OneSignal = window.OneSignal || [];
+// const OneSignal = window.OneSignal;
 function App() {
-  useEffect(() => {
-    OneSignal.push(() => {
-      OneSignal.init({
-        appId: "fe13c665-7830-497e-9a3f-27a523840baf", //STEP 9
-        welcomeNotification: {
-          title: "One Signal",
-          message: "Thanks for subscribing!",
-        },
-      });
-    });
-  }, []);
+
+
+  // useEffect(() => {
+  //   OneSignal.push(() => {
+  //     OneSignal.init({
+  //       appId: "fe13c665-7830-497e-9a3f-27a523840baf", //STEP 9
+  //       welcomeNotification: {
+  //         title: "One Signal",
+  //         message: "Thanks for subscribing!",
+  //       },
+  //     });
+  //   });
+  // }, []);
   return (
     <>
       <Router>

@@ -408,26 +408,8 @@ function ItemPage(props) {
       });
     setShow(false);
   };
-  // const show_number = () => {
-  //   console.log("Number Shown");
-  //   const { location } = props;
-  //   Axios({
-  //     url: `/getnumber/${
-  //       location.search.substring(1).split("=")[1].split("&")[0]
-  //     }`,
-  //     method: "GET",
-  //   })
-  //     .then((response) => {
-  //       console.log(response.data.Number);
-  //       setPhoneNumber(response.data.Number);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  //   // handleCloseNumber()
-  // };
+
   const show_question = () => {
-    // console.log("Number Shown");
     setshowQuestion(true);
   };
   const submitAnswer = () => {
@@ -455,22 +437,7 @@ function ItemPage(props) {
       });
     setAnswer("");
   };
-  // {
-  //   itemimage.map((item) => {
-  //     console.log(item);
-  //   });
-  // }
-  // const test=Object.values(itemimage)
-  // console.log(test[0])
-  // const people = [];
-  // const [test,setTest]=useState("")
-  // for (let i = 0; i < 10; i++) {
-  //   people.push({
-  //     name: "Aloo",
-  //     country: "India",
-  //   });
-  // }
-  // setTest(people)
+
   return (
     <>
       <Navbar />

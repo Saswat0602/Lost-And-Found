@@ -34,7 +34,7 @@ export default function Feed() {
   useEffect(() => {
     // console.log("Test");
     Axios({
-      url: "https://lfs-backend.herokuapp.com/getitem",
+      url: "http://localhost:5000/api/getitem",
       method: "GET",
     })
       .then((response) => {
@@ -45,7 +45,7 @@ export default function Feed() {
         let Found_items = [];
         data.reverse().map((item) => {
           let created_date = new Date(item.createdAt);
-          
+
           let createdAt =
             created_date.getDate() +
             "/" +
