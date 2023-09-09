@@ -101,13 +101,13 @@ export default function Home() {
           </div>
 
           <div className="part-2">
-            <div className="image">
+            {/* <div className="image">
               <img
                 src=""
                 style={{ width: "500px", height: "500px" }}
                 alt="images"
               />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

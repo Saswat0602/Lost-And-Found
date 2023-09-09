@@ -12,29 +12,27 @@ router.get("/", async (req, res) => {
 //route for register
 
 router.post("/api/register", async (req, res) => {
-  const { name, email, password, cpassword } = req.body;
-
-  if (!name || !email || !password || !cpassword) {
-    return res.status(403).json({ err̥or: "Plese fill up all fields" });
+  const { firstname, lastname, email, number, password, cpassword } = req.body;
+  if (!firstname || !lastname || !email || !number || !password || !cpassword) {
+    return res.status(403).json({ error: "Please fill up all fields" });
   }
-
-  if (!password || !cpassword) {
-    return res.status(401).json({ error: "Passwords are required!" });
+  if (password !== cpassword) {
+    return res.status(401).json({ error: "Passwords do not match" });
   }
-
-  const check = await User.findOne({ email: email });
-  if (check) {
-    return res.status(401).json({ msg: "user already exist" });
-  }
-
   try {
-    const newUser = new User({ name, email, password });
+    const check = await User.findOne({ email: email });
+    if (check) {
+      return res.status(401).json({ msg: "User already exists" });
+    }
+    const newUser = new User({ firstname, lastname, email, number, password });
     await newUser.save();
-    res.status(200).json({ msg: "user created successsfullly" });
+    res.status(200).json({ msg: "User created successfully" });
   } catch (e) {
-    res.status(400).json({ msg: e });
+    res.status(400).json({ msg: e.message });
   }
 });
+
+
 
 //route for login 
 router.post("/api/login", async (req, res) => {

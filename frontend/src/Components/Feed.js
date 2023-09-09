@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import { useLocation } from "react-router-dom";
 import { setConstraint } from "../constraints";
 import Navbar from "../Components/Navbar";
 import "../css/feed.css";
@@ -8,9 +7,7 @@ import Axios from "axios";
 import { Card, Col, Container, Row } from "react-bootstrap";
 
 export default function Feed() {
-  // console.log("Status :", LOGGED_IN)
-  // const [user_info,setuser_info]=useState(localStorage.getItem("user"))
-  // const [user_info,setuser_info]=useState(localStorage.getItem('user'))
+  
   const [user_info, setuser_info] = useState(
     JSON.parse(localStorage.getItem("user"))
   );
@@ -29,36 +26,9 @@ export default function Feed() {
       </p>
     );
   };
-  // const [user_info,setuser_info]=useState('')
-  // console.log(user_info)
 
-  // const location = useLocation();
-  // useEffect(()=>{
-  //   if(location.user==null){
-  //     console.log("if statement",user_info)
-  //     // location.user=''
-  //   }
-  //   else{
-  //     // console.log("Else",user_info)
-  //     console.log(location.user)
-  //     setuser_info(location.user)
-  //     console.log(user_info)
-  //     // console.log("Else statement",user_info)
-  //   }
-  // },[])
-  // useEffect(()=>{
-  //   console.log(location.user)
-  //   localStorage.setItem('user',JSON.stringify(location.user))
-  //   setuser_info((localStorage.getItem('user')))
-  // },[])
-  // console.log("User info is :", location.user);
   setConstraint(true);
-  // var user_info
-  // if(NEW_USER===false){
-  //   user_info=location.user
-  //   setUser(true)
-  // }
-  // console.log(constraint.LOGGED_IN);
+
   const [item, setitem] = useState("");
   const [Found_item, setFound_item] = useState();
   useEffect(() => {
@@ -75,8 +45,7 @@ export default function Feed() {
         let Found_items = [];
         data.reverse().map((item) => {
           let created_date = new Date(item.createdAt);
-          // console.log(created_date);
-          // console.log(created_date.getDate()+"/"+created_date.getMonth()+"/"+created_date.getFullYear()+" "+created_date.getHours()+":"+created_date.getMinutes());
+          
           let createdAt =
             created_date.getDate() +
             "/" +

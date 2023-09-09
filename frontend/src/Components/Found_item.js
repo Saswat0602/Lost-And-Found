@@ -12,16 +12,12 @@ function Found_item() {
   const token = window.localStorage.getItem("token");
 
   const handleCloseF = () => {
-    // const form = new FormData();
-    // form.append("name", itemname);
-    // form.append("description", description);
-    // form.append('itemPictures',itemname)
+
     const payload = {
       name: itemname,
       description: description,
       itemPictures: itemimage,
     };
-    // console.log(payload);
     axios({
       url: "http://localhost:5000/founditem",
       method: "POST",
@@ -31,7 +27,6 @@ function Found_item() {
       },
       withCredentials: true,
       credentials: "include",
-      // url: "http://localhost:5000/login"
     })
       .then((response) => {
         // console.log(response)

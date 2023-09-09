@@ -18,7 +18,7 @@ function Login() {
       password: document.getElementById("password").value,
     };
     axios({
-      url: "https://lfs-backend.herokuapp.com/login",
+      url: "http://localhost:5000/api/login",
       method: "POST",
       data: payload,
     })
@@ -26,7 +26,7 @@ function Login() {
         console.log("Response is :", response);
         if (response.data.user) {
           setuser_info(response.data.user);
-          localStorage.setItem("token", response.data.jwt_token);
+          localStorage.setItem("token", response.token);
           localStorage.setItem("user", JSON.stringify(response.data.user));
           navigate("/feed", { state: { user: response.data.user } }); // Use navigate
         } else {
