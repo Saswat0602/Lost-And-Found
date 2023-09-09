@@ -9,7 +9,7 @@ function Login() {
   const [loading, setloading] = useState(false);
   const [info, setinfo] = useState("");
   const [user_info, setuser_info] = useState("");
-  const navigate = useNavigate(); // Replace useHistory with useNavigate
+  const navigate = useNavigate(); 
 
   function login() {
     setloading(true);

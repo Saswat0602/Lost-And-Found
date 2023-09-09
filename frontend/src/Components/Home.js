@@ -6,19 +6,19 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 // import image from "../img/undraw_lost_bqr2.svg";
 // import {annotate} from "rough-notation"
-import developer from "../img/developer_outline I.svg";
 import login from "../img/login-1.svg";
 import list_item from "../img/list-item.svg";
 import notification from "../img/notification.svg";
 import github from "../img/github.svg";
 import linkedin from "../img/linkedin.svg";
-// import instagram from "../img/instagram.svg";
 import mail from "../img/mail.svg";
 // import feature from "../img/feature.svg";
 
 // import image from "../img/earth.svg";
 import { Container, Row, Button, Form } from "react-bootstrap";
-export default function Home() {
+import { Link } from "react-router-dom";
+
+const Home = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -66,7 +66,7 @@ export default function Home() {
     };
     Axios({
       method: "POST",
-      url: "http://localhost:5000/api/sendmessagapie",
+      url: "http://localhost:5000/api/sendmessagapi",
       data: data,
     })
       .then((res) => {
@@ -79,6 +79,7 @@ export default function Home() {
     setEmail("");
     setMessage("");
   };
+
   return (
     <>
       <Navbar />
@@ -99,16 +100,7 @@ export default function Home() {
               </Button>
             </div>
           </div>
-
-          <div className="part-2">
-            {/* <div className="image">
-              <img
-                src=""
-                style={{ width: "500px", height: "500px" }}
-                alt="images"
-              />
-            </div> */}
-          </div>
+          <div className="part-2"></div>
         </div>
       </div>
 
@@ -127,11 +119,13 @@ export default function Home() {
                 />
                 <h4>Create an account</h4>
                 <p>Initially, you have to create an account to get started.</p>
-                <a href="/log-in">
+                <Link to="/log-in">
+                  {" "}
+                  {/* Replace <Link> with <Link> */}
                   <Button variant="custom" size="lg">
                     Sign Up
                   </Button>
-                </a>
+                </Link>
               </div>
               <div className="info">
                 <img
@@ -153,40 +147,26 @@ export default function Home() {
                 />
                 <h4>Get Notified</h4>
                 <p>
-                  Once anyone posts an item, we make our registred users aware
-                  about the same by sending notification .
+                  Once anyone posts an item, we make our registered users aware
+                  about the same by sending notifications.
                 </p>
               </div>
             </div>
           </div>
         </Container>
       </div>
-    
 
       <div className="footer">
         <div className="social-icon">
-          <a
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <Link href="#" target="_blank" rel="noopener noreferrer">
             <img src={github} className="icon github" alt="" />
-          </a>
-          <a
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          </Link>
+          <Link href="#" target="_blank" rel="noopener noreferrer">
             <img src={linkedin} className="icon" alt="" />
-          </a>
-        
-          <a
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          </Link>
+          <Link href="#" target="_blank" rel="noopener noreferrer">
             <img src={mail} className="icon" alt="" />
-          </a>
+          </Link>
         </div>
         <div className="personal-info">
           <p>Created with ❤️ using MERN by </p>
@@ -194,13 +174,13 @@ export default function Home() {
             <span className="symbol">&#60;</span>No one
             <span className="symbol">/&#62;</span>
           </h4>
-        
         </div>
         <h5 style={{ textAlign: "center" }}>
           Copyright © 2022. All rights reserved.
         </h5>
       </div>
-     
     </>
   );
-}
+};
+
+export default Home;

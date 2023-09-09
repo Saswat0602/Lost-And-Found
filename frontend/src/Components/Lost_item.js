@@ -5,7 +5,7 @@ import { Button, Modal, Form, Spinner } from "react-bootstrap";
 
 function LostItem() {
   const [show, setShow] = useState(false);
-  const token = window.localStorage.getItem("token");
+  const token = localStorage.getItem("token");
   const [loading, setLoading] = useState(false);
   const [itemname, setItemname] = useState("");
   const [description, setDescription] = useState("");
