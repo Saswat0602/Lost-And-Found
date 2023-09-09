@@ -60,7 +60,6 @@ function ItemPage(props) {
     setActivationRequest(false);
   };
   const submitActivate = () => {
-    // console.log("dd")
     Axios({
       method: "POST",
       url: `http://localhost:5000/activateItem/${item_id}`,

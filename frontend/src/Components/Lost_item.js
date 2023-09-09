@@ -1,77 +1,77 @@
 import React, { useState } from "react";
 import axios from "axios";
-import lodash from "lodash";
 import "bootstrap/dist/css/bootstrap.css";
 import { Button, Modal, Form, Spinner } from "react-bootstrap";
-
 
 function LostItem() {
   const [show, setShow] = useState(false);
   const token = window.localStorage.getItem("token");
-  const [loading, setloading] = useState(false);
-  const [itemname, setitemname] = useState("");
-  const [description, setdescription] = useState("");
-  const [itemquestion, setitemquestion] = useState("");
-  const [itemimage, setitemimage] = useState([]);
-  const [type, settype] = useState("");
-  // const [alertshow, setalertShow] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [itemname, setItemname] = useState("");
+  const [description, setDescription] = useState("");
+  const [itemquestion, setItemquestion] = useState("");
+  const [itemimage, setItemimage] = useState([]);
+  const [type, setType] = useState("");
 
   const handleShow = () => setShow(true);
-  const handleClose = () => {
-    setloading(true);
-  
-    if (itemname && description && type) {
-      // console.log("Item image : ", itemimage);
-      const info = new FormData();
-      info.append("name", itemname);
-      info.append("description", description);
-      info.append("question", itemquestion);
-      info.append("type", type);
-      itemimage.map((itemImage) => {
-        info.append("itemPictures", itemImage, itemImage.name);
+  const handleClose = () => setShow(false);
+
+  const handlePostItem = () => {
+    setLoading(true);
+
+    if (itemname && description && type && itemimage.length > 0) {
+      const formData = new FormData();
+      formData.append("name", itemname);
+      formData.append("description", description);
+      formData.append("question", itemquestion);
+      formData.append("type", type);
+      itemimage.forEach((image) => {
+        formData.append("itemPictures", image);
       });
 
       axios({
         url: "http://localhost:5000/api/postitem",
         method: "POST",
-        data: info,
+        data: formData,
         headers: {
           Authorization: token ? `Bearer ${token}` : "",
+          "Content-Type": "multipart/form-data", // Important for file uploads
         },
-        onUploadProgress: (ProgressEvent) => {
+        onUploadProgress: (progressEvent) => {
           console.log(
             "Upload progress: " +
-              Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
+              Math.round(
+                (progressEvent.loaded / progressEvent.total) * 100
+              ) +
               "%"
           );
         },
       })
         .then((response) => {
           console.log(response);
-        })
-        .then(() => {
-          // eslint-disable-next-line no-lone-blocks
-
-          setitemname("");
-          setdescription("");
-          settype("");
-          setitemquestion("");
-          setitemimage([]);
-          // console.log("Executed");
-          setloading(false);
+          // Reset form fields and close the modal
+          setItemname("");
+          setDescription("");
+          setType("");
+          setItemquestion("");
+          setItemimage([]);
+          setLoading(false);
           setShow(false);
         })
         .catch((err) => {
-          setloading(false);
+          setLoading(false);
           console.log(err);
         });
     } else {
-     
+      setLoading(false);
+      console.log("Please fill in all required fields and upload at least one image.");
     }
   };
+
   const temporaryShut = () => {
     setShow(false);
   };
+
   return (
     <div>
       <Button variant="primary" onClick={handleShow}>
@@ -80,7 +80,7 @@ function LostItem() {
 
       <Modal
         show={show}
-        onHide={() => setShow(false)}
+        onHide={handleClose}
         backdrop="static"
         keyboard={false}
       >
@@ -97,7 +97,7 @@ function LostItem() {
                 type="text"
                 placeholder="Enter item"
                 value={itemname}
-                onChange={(e) => setitemname(e.target.value)}
+                onChange={(e) => setItemname(e.target.value)}
               />
             </Form.Group>
 
@@ -109,7 +109,7 @@ function LostItem() {
                 as="textarea"
                 placeholder="Enter Description"
                 value={description}
-                onChange={(e) => setdescription(e.target.value)}
+                onChange={(e) => setDescription(e.target.value)}
               />
             </Form.Group>
 
@@ -119,7 +119,7 @@ function LostItem() {
                 type="text"
                 placeholder="Ex:- What is the color of the phone ?"
                 value={itemquestion}
-                onChange={(e) => setitemquestion(e.target.value)}
+                onChange={(e) => setItemquestion(e.target.value)}
               />
             </Form.Group>
 
@@ -131,7 +131,7 @@ function LostItem() {
                 as="select"
                 required={true}
                 defaultValue="Choose..."
-                onChange={(e) => settype(e.target.value)}
+                onChange={(e) => setType(e.target.value)}
               >
                 <option>Choose..</option>
                 <option value={"Lost"}>Lost It</option>
@@ -144,12 +144,10 @@ function LostItem() {
                 id="formimage"
                 label="Upload Image"
                 onChange={(e) => {
-                  // console.log(e.target.files)
                   let { files } = e.target;
-                  lodash.forEach(files, (file) => {
-                    // console.log(file);
-                    setitemimage((item) => [...item, file]);
-                  });
+                  // Convert FileList to an array and update state
+                  const imageArray = Array.from(files);
+                  setItemimage(imageArray);
                 }}
                 multiple
               />
@@ -157,11 +155,10 @@ function LostItem() {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShow(false)}>
+          <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          {/* onClick={handleClose} */}
-          <Button variant="primary" onClick={temporaryShut}>
+          <Button variant="primary" onClick={handlePostItem}>
             {loading ? (
               <>
                 <Spinner

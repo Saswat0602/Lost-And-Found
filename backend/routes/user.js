@@ -83,7 +83,7 @@ router.put("api/login/:id", async (req, res) => {
 
 // route for Property page
 
-router.get("/api/property", validate, (req, res) => {
+router.get("/api/allitems", validate, (req, res) => {
   console.log(req.correctUser);
 
   const finalUser = req.correctUser;
