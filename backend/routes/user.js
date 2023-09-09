@@ -1,12 +1,12 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
-const User = require("../models/user");
+const User = require("../model/user");
 const validate = require("../middleware/validate");
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  res.send("hello from property backend server");
+  res.send("hello from  backend server");
 });
 
 //route for register
@@ -15,7 +15,7 @@ router.post("/api/register", async (req, res) => {
   const { name, email, password, cpassword } = req.body;
 
   if (!name || !email || !password || !cpassword) {
-    return res.status(403).json({ error: "Plese fill up all fields" });
+    return res.status(403).json({ err̥or: "Plese fill up all fields" });
   }
 
   if (!password || !cpassword) {

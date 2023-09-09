@@ -4,9 +4,8 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
 const bodyParser = require("body-parser");
-const user = require("./router/user");
+const user = require("./routes/user");
 const cors = require("cors");
-const property = require("./router/property");
 
 require("dotenv").config();
 const app = express();
@@ -20,7 +19,6 @@ app.use(morgan("common"));
 app.use(cors());
 
 app.use(user);
-app.use(property);
 
 const PORT = 5000;
 
