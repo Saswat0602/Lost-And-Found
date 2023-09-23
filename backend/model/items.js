@@ -1,5 +1,6 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+import mongoose from "mongoose";
+
+const { Schema } = mongoose;
 
 const ImageSchema = new Schema({
   url: String,
@@ -31,4 +32,4 @@ const itemSchema = new Schema({
 
 const Item = mongoose.model("Item", itemSchema);
 
-module.exports = Item;
+export default Item;

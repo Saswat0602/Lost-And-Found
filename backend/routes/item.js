@@ -1,27 +1,13 @@
-// Import necessary libraries
-const express = require("express");
-const multer = require("multer");
+import express from "express";
+import multer from "multer";
+import addItems from "../controller/item";
+
 const router = express.Router();
-// const { checkToken } = require("./middleware");
+
+// Define storage using multer
 const storage = multer.memoryStorage();
-const addItems = require('../controller/item')
 
-router.post("/api/postitem",addItems)
+// Define a route for posting items
+router.post("/api/postitem", addItems);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-module.exports = router;
+export default router;

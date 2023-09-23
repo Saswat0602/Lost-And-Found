@@ -1,16 +1,15 @@
-const express = require("express");
-const bcrypt = require("bcrypt");
-const User = require("../model/user");
-const validate = require("../middleware/validate");
+import express from "express";
+import bcrypt from "bcrypt";
+import User from "../model/user.js";
+import validate from "../middleware/validate.js";
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  res.send("hello from  backend server");
+  res.send("hello from backend server");
 });
 
-//route for register
-
+// Route for register
 router.post("/api/register", async (req, res) => {
   const { firstname, lastname, email, number, password, cpassword } = req.body;
   if (!firstname || !lastname || !email || !number || !password || !cpassword) {
@@ -32,9 +31,7 @@ router.post("/api/register", async (req, res) => {
   }
 });
 
-
-
-//route for login 
+// Route for login
 router.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
@@ -57,9 +54,9 @@ router.post("/api/login", async (req, res) => {
           return res.status(500).json({ msg: "internal server error" });
         } else {
           res.status(200).json({
-            msg: "user loggedin successfully",
+            msg: "user logged in successfully",
             token: userToken,
-            userId: userId 
+            userId: userId,
           });
         }
       }
@@ -71,18 +68,12 @@ router.post("/api/login", async (req, res) => {
   }
 });
 
-
-  
-
-
-
-
-router.put("api/login/:id", async (req, res) => {
+// Route for updating user information
+router.put("/api/login/:id", async (req, res) => {
   console.log(req.body);
 });
 
-// route for Property page
-
+// Route for Property page
 router.get("/api/allitems", validate, (req, res) => {
   console.log(req.correctUser);
 
@@ -91,4 +82,4 @@ router.get("/api/allitems", validate, (req, res) => {
   res.send(finalUser);
 });
 
-module.exports = router;
+export default router;

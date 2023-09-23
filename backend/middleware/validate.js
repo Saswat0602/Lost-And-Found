@@ -1,11 +1,11 @@
-const jwt = require("jsonwebtoken");
-const User = require("../model/user");
+import jwt from "jsonwebtoken";
+import User from "../model/user.js";
 
 const validate = async (req, res, next) => {
   try {
     const token = req.headers["authorization"];
 
-    const verifyToken = jwt.verify(token, process.env.SECRATE);
+    const verifyToken = jwt.verify(token, process.env.SECRET);
 
     const correctUser = await User.findById({ _id: verifyToken._id });
 
@@ -19,9 +19,9 @@ const validate = async (req, res, next) => {
 
     next();
   } catch (error) {
-    res.status(401).send("un authorise user");
+    res.status(401).send("unauthorised user");
     console.log(error);
   }
 };
 
-module.exports = validate;
+export default validate;
