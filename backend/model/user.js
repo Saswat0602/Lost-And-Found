@@ -35,7 +35,7 @@ userSchema.pre("save", async function (next) {
 });
 
 userSchema.methods.generateToken = async function () {
-  let token = jwt.sign({ _id: this._id }, process.env.SECRET);
+  let token = jwt.sign({ _id: this._id }, process.env.SECRATE);
   return token;
 };
 

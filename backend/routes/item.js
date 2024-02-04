@@ -1,6 +1,6 @@
-import express from "express";
-import multer from "multer";
-import addItems from "../controller/item";
+import express from 'express';
+import multer from 'multer';
+import addItems from '../controller/item';
 
 const router = express.Router();
 
@@ -8,6 +8,6 @@ const router = express.Router();
 const storage = multer.memoryStorage();
 
 // Define a route for posting items
-router.post("/api/postitem", addItems);
+router.post('/api/postitem', addItems);
 
 export default router;
