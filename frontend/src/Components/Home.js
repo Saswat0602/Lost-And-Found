@@ -15,7 +15,7 @@ import mail from "../img/mail.svg";
 // import feature from "../img/feature.svg";
 
 // import image from "../img/earth.svg";
-import { Container, Row, Button, Form } from "react-bootstrap";
+import { Container, Row, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -90,7 +90,7 @@ const Home = () => {
             <div className="title">
               <h1 id="title-h">Lost and Found</h1>
               <p>Lost it😕. List it📃. Find it🤩.</p>
-              <Button
+              <button
                 variant="custom"
                 size="lg"
                 onClick={() => {
@@ -98,7 +98,7 @@ const Home = () => {
                 }}
               >
                 Get Started
-              </Button>
+              </button>
             </div>
           </div>
           <div className="part-2"></div>
@@ -123,9 +123,9 @@ const Home = () => {
                 <Link to="/log-in">
                   {" "}
                   {/* Replace <Link> with <Link> */}
-                  <Button variant="custom" size="lg">
+                  <button variant="custom" size="lg">
                     Sign Up
-                  </Button>
+                  </button>
                 </Link>
               </div>
               <div className="info">
@@ -176,9 +176,9 @@ const Home = () => {
             <span className="symbol">/&#62;</span>
           </h4>
         </div>
-        <h5 style={{ textAlign: "center" }}>
+        {/* <h5 style={{ textAlign: "center" }}>
           Copyright © 2022. All rights reserved.
-        </h5>
+        </h5> */}
       </div>
     </>
   );
