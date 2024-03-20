@@ -29,6 +29,8 @@
 }
 .postsignin{
     display: flex;
+    justify-content: space-between;
+
 }
 .postsignin>ul{
     margin: 6px 10px 0px 10px;
