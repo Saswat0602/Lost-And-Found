@@ -28,19 +28,19 @@ function Navbar() {
     <>
       <div className="navbar">
         <div className="logo">
-          <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+          <Link to="/" className= "text-white  no-underline hover:underline  hover:text-gray-700">
             <h2>Lost and Found</h2>
           </Link>
         </div>
 
         <div style={token ? { display: "none" } : {}} id="login" className="signin">
           <ul>
-            <Link to="/sign-up" style={{ textDecoration: "none", color: "white" }}>
+            <Link to="/sign-up" className= "text-white  no-underline hover:underline  hover:text-gray-700">
               Sign-up
             </Link>
           </ul>
           <ul>
-            <Link to="/log-in" style={{ textDecoration: "none", color: "white" }}>
+            <Link to="/log-in" className= "text-white  no-underline hover:underline  hover:text-gray-700">
               Log-in
             </Link>
           </ul>
@@ -50,17 +50,17 @@ function Navbar() {
           <div>
             <LostItem />
           </div>
-          <ul>
-            <Link to="/feed" style={{ textDecoration: "none", color: "white" }}>
+          <ul style={{paddingLeft:0}}>
+            <Link to="/feed"  className= "text-white  no-underline hover:underline  hover:text-gray-700">
               Feed
             </Link>
-            <Link to="/responses" style={{ textDecoration: "none", color: "white" }}>
+            <Link to="/responses" className= "text-white  no-underline hover:underline  hover:text-gray-700">
               Responses
             </Link>
-            <Link to="/mylistings" style={{ textDecoration: "none", color: "white" }}>
+            <Link to="/mylistings" className= "text-white  no-underline hover:underline  hover:text-gray-700">
               My Listings
             </Link>
-            <Link to="/log-in" style={{ textDecoration: "none", color: "white" }} onClick={signout}>
+            <Link to="/log-in" className= "text-white  no-underline hover:underline  hover:text-gray-700" onClick={signout}>
               Sign-out
             </Link>
           </ul>
@@ -83,7 +83,7 @@ export default Navbar;
   <ul>
     <li>
       <a
-        style={{ textDecoration: "none", color: "white" }}
+        className= "text-white  no-underline hover:underline  hover:text-gray-700"
         href="/mylistings"
       >
         My Listings
@@ -91,7 +91,7 @@ export default Navbar;
     </li>
     <li>
       <a
-        style={{ textDecoration: "none", color: "white" }}
+        className= "text-white  no-underline hover:underline  hover:text-gray-700"
         href="/responses"
       >
         Responses
@@ -99,7 +99,7 @@ export default Navbar;
     </li>
     <li>
       <a
-        style={{ textDecoration: "none", color: "white" }}
+        className= "text-white  no-underline hover:underline  hover:text-gray-700"
         onClick={signout}
         href="/log-in"
       >
