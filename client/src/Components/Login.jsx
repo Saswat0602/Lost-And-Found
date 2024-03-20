@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../css/newSignup.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../Components/Navbar";
+import Navbar from "./Navbar";
 import { Spinner } from "react-bootstrap";
 
 function Login() {

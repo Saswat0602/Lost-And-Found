@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { setConstraint } from "../constraints";
-import Navbar from "../Components/Navbar";
+import Navbar from "./Navbar";
 import "../css/item_card.css";
 import "../css/mylisting.css";
 import Axios from "axios";

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { setConstraint } from "../constraints";
-import Navbar from "../Components/Navbar";
+import Navbar from "./Navbar";
 import "../css/feed.css";
 import "../css/item_card.css";
 import Axios from "axios";

@@ -19,9 +19,9 @@ export default function Feed() {
     };
     return (
       <p style={{ fontSize: "1rem" }} className="text">
-        {isReadMore ? text.slice(0, 15) : text}
+        {/* {isReadMore ? text.slice(0, 15) : text} */}
         <span onClick={toggleReadMore} className="read-or-hide">
-          {isReadMore ? "...." : " show less"}
+          {/* {isReadMore ? "...." : " show less"} */}
         </span>
       </p>
     );
@@ -81,7 +81,7 @@ export default function Feed() {
                   <Card bsPrefix="item-card">
                     <Card.Img
                       variant="top"
-                      src={`https://lost-and-found-system.s3.amazonaws.com/${item.itemPictures[0].img}`}
+                      // src={`https://lost-and-found-system.s3.amazonaws.com/${item.itemPictures[0].img}`}
                     />
                     <Card.Body bsPrefix="card-body">
                       <Card.Title

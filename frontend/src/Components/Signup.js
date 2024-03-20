@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import "../css/newSignup.css";
 import axios from "axios";
 import Navbar from "../Components/Navbar";
+import { useNavigate } from "react-router-dom";
 
 function Signup(props) {
   const [info, setInfo] = useState("");
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
@@ -27,8 +29,8 @@ function Signup(props) {
       .then((response) => {
         setInfo(response.data);
         if (response.data === "Done") {
-          console.log("success")
-          props.history.push("/log-in");
+          console.log("success+++++++++++++++++++++++++",response)
+          navigate("/log-in");
         }
       })
       .catch(() => {
@@ -46,11 +48,10 @@ function Signup(props) {
   return (
     <>
       <Navbar />
-
       <div>
         <form className="Box-1">
           <h1 className="name">Sign up</h1>
-          <p style={{ color: "white" }}>{info}</p>
+          <p style={{ color: "#03fc0b" }}>{info.msg}</p>
           <div className="row1">
             <input
               type="text"
