@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Signup from "./Components/Signup";
 import Login from "./Components/Login";
-// import Feed from "./Components/Feed";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Response from "./Components/Response";
 import "bootstrap/dist/css/bootstrap.min.css";
 // import PrivateRoute from "./Components/privateroute";
@@ -40,6 +41,7 @@ function App() {
           {/* <Route path="/:item" element={<ItemPage />} /> */}
           <Route path="/feed" element={<Feed />} />
         </Routes>
+        <ToastContainer />
       </Router>
     </>
   );

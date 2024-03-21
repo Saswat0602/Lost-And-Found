@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 import { Spinner } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 function Login() {
   const [loading, setLoading] = useState(false);
@@ -14,6 +15,21 @@ function Login() {
     setLoading(true);
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
+    if (!email || !password) {
+      toast.error("Email or password is missing", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      setLoading(false);
+      return; 
+    }
+  
 
     axios({
       url: "http://localhost:5000/api/login",
@@ -23,34 +39,39 @@ function Login() {
         password,
       },
     })
-      .then((response) => {
-        console.log("Response is:", response);
-        if (response.data.token && response.data.userId) {
-          localStorage.setItem("token", response.data.token);
-          localStorage.setItem("user", JSON.stringify(response.data.userId));
-          navigate("/feed");
-        } else {
-          setInfo("Invalid credentials");
-        }
-      })
-      .then((response) => {
-        console.log("Response is:", response);
-        if (response.data.token && response.data.userId) {
-          localStorage.setItem("token", response.data.token);
-          console.log(response.data.token);
-          localStorage.setItem("user", JSON.stringify(response.data.userId));
-          console.log(response.data.userId);
-          navigate("/feed");
-        } else {
-          setInfo("Invalid credentials");
-        }
-      })
-
-      .catch((error) => {
-        setLoading(false);
-        console.log(error);
-        setInfo("Error occurred");
+    .then((response) => {
+      if (response.data.token && response.data.userId) {
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("user", JSON.stringify(response.data.userId));
+        localStorage.setItem("name", JSON.stringify(response.data.firstName));
+        navigate("/feed");
+      } else {
+        toast.error(response.data.msg || "Invalid credentials", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
+    })
+    .catch((error) => {
+      setLoading(false);
+      toast.error(error.response.data.msg, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
       });
+    });
+    
   }
 
   return (
@@ -59,7 +80,6 @@ function Login() {
       <div style={{ display: "flex" }}>
         <form className="Box-1 login">
           <h1>Log in</h1>
-          <p style={{ color: "white" }}>{info}</p>
           <input
             type="email"
             name="email"

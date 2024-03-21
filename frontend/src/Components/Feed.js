@@ -7,10 +7,12 @@ import Axios from "axios";
 import { Card, Col, Container, Row } from "react-bootstrap";
 
 export default function Feed() {
+  const [user_info, setuser_info] = useState({
+    name: JSON.parse(localStorage.getItem("name")) || "",
+    id: JSON.parse(localStorage.getItem("user")) || ""
+  });
   
-  const [user_info, setuser_info] = useState(
-    JSON.parse(localStorage.getItem("user"))
-  );
+  console.log(user_info,"user_info")
   const ReadMore = ({ children }) => {
     const text = children;
     const [isReadMore, setIsReadMore] = useState(true);
@@ -218,7 +220,7 @@ export default function Feed() {
             marginLeft: "5px",
           }}
         >
-          Welcome {user_info.firstname} 👋!
+          Welcome {user_info.name ?? " "} 👋!
         </h2>
       </div>
       <div>

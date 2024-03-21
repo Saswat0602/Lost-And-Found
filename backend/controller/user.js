@@ -41,10 +41,11 @@ const login = async (req, res) => {
         const userId = findEmail._id;
 
         if (!userToken) {
-          return res.status(500).json({ msg: "internal server error" });
+          return res.status(500).json({ msg: "Some Error Occurs" });
         } else {
           res.status(200).json({
             msg: "user logged in successfully",
+            firstName: findEmail.firstname, 
             token: userToken,
             userId: userId,
           });
@@ -57,5 +58,6 @@ const login = async (req, res) => {
     res.status(500).json({ message: "error in login", error: error });
   }
 };
+
 
 export { register, login };
