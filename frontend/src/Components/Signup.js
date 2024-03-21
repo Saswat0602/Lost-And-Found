@@ -3,6 +3,7 @@ import "../css/newSignup.css";
 import axios from "axios";
 import Navbar from "../Components/Navbar";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Signup(props) {
   const [info, setInfo] = useState("");
@@ -21,6 +22,18 @@ function Signup(props) {
     const payload = {
       ...formData,
     };
+    if (!formData.firstname || !formData.lastname || !formData.email || !formData.number || !formData.password || !formData.cpassword) {
+      toast.error("All fields are required", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
     axios({
       url: "http://localhost:5000/api/register", 
       method: "POST",
@@ -29,12 +42,41 @@ function Signup(props) {
       .then((response) => {
         setInfo(response.data);
         if (response.data === "Done") {
-          console.log("success+++++++++++++++++++++++++",response)
           navigate("/log-in");
+          toast.success(response.data.msg, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         }
       })
-      .catch(() => {
-        console.log("Error occurred");
+      .catch((error) => {
+        if (error.response) {
+          const errorMessage = error.response.data.error || error.response.data.msg || "An error occurred";
+          toast.error(errorMessage, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        } else {
+          toast.error("An error occurred", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
       });
   };
 

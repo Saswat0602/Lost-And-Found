@@ -79,7 +79,6 @@ const Home = () => {
     setMessage("");
   };
 
-  
   return (
     <>
       <Navbar />
@@ -90,11 +89,10 @@ const Home = () => {
               <h1 id="title-h">Lost and Found</h1>
               <p>Lost it😕. List it📃. Find it🤩.</p>
               <button
-                variant="custom"
-                size="lg"
                 onClick={() => {
                   ref.current.scrollIntoView({ behavior: "smooth" });
                 }}
+                className="bg-blue-600 px-4 py-2 rounded-md hover:bg-blue-300 text-slate-100 hover:text-black transition duration-300 ease-in-out"
               >
                 Get Started
               </button>
@@ -120,9 +118,7 @@ const Home = () => {
                 <h4>Create an account</h4>
                 <p>Initially, you have to create an account to get started.</p>
                 <Link to="/log-in">
-                  {" "}
-                  {/* Replace <Link> with <Link> */}
-                  <button variant="custom" size="lg">
+                  <button className=" px-4 py-2 rounded-md  text-blue-500 hover:text-blue-900 transition duration-300 ease-in-out">
                     Sign Up
                   </button>
                 </Link>
