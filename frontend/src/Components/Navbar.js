@@ -3,10 +3,11 @@ import { setConstraint } from "../constraints";
 import "../css/Navbar.css";
 import axios from "axios";
 import LostItem from "./Lost_item";
-import { Link } from "react-router-dom"; 
-
+import { Link } from "react-router-dom";
+import { ProjectCotext } from "../Context/ProjectCotext";
 function Navbar() {
   const token = window.localStorage.getItem("token");
+  const { showPostModal, setShowPostModal } = ProjectCotext();
 
   const signout = () => {
     setConstraint(false);
@@ -24,43 +25,76 @@ function Navbar() {
         console.log(error);
       });
   };
- return (
+  return (
     <>
       <div className="navbar">
         <div className="logo">
-          <Link to="/" className= "text-white  no-underline hover:underline  hover:text-gray-700">
+          <Link
+            to="/"
+            className="text-white  no-underline hover:underline  hover:text-gray-700"
+          >
             <h2>Lost and Found</h2>
           </Link>
         </div>
 
-        <div style={token ? { display: "none" } : {}} id="login" className="signin">
+        <div
+          style={token ? { display: "none" } : {}}
+          id="login"
+          className="signin"
+        >
           <ul>
-            <Link to="/sign-up" className= "text-white  no-underline hover:underline  hover:text-gray-700">
+            <Link
+              to="/sign-up"
+              className="text-white  no-underline hover:underline  hover:text-gray-700"
+            >
               Sign-up
             </Link>
           </ul>
           <ul>
-            <Link to="/log-in" className= "text-white  no-underline hover:underline  hover:text-gray-700">
+            <Link
+              to="/log-in"
+              className="text-white  no-underline hover:underline  hover:text-gray-700"
+            >
               Log-in
             </Link>
           </ul>
         </div>
-        
+
         <div style={token ? {} : { display: "none" }} className="postsignin">
-          <div>
-            <LostItem />
-          </div>
-          <ul style={{paddingLeft:0}}>
-            <Link to="/feed"  className= "text-white  no-underline hover:underline  hover:text-gray-700">
+          <button
+            className={`rounded-md px-4 py-2 ${
+              showPostModal ? "bg-sky-300" : "bg-sky-600"
+            }`}
+            onClick={() => {
+              setShowPostModal(!showPostModal);
+            }}
+          >
+            Post Item
+          </button>
+          <ul style={{ paddingLeft: 0 }}>
+            <Link
+              to="/feed"
+              className="text-white  no-underline hover:underline  hover:text-gray-700"
+            >
               Feed
             </Link>
-            <Link to="/responses" className= "text-white  no-underline hover:underline  hover:text-gray-700">
+            <Link
+              to="/responses"
+              className="text-white  no-underline hover:underline  hover:text-gray-700"
+            >
               Responses
             </Link>
-            <Link to="/mylistings" className= "text-white  no-underline hover:underline  hover:text-gray-700">
+            <Link
+              to="/mylistings"
+              className="text-white  no-underline hover:underline  hover:text-gray-700"
+            >
               My Listings
             </Link>
-            <Link to="/log-in" className= "text-white  no-underline hover:underline  hover:text-gray-700" onClick={signout}>
+            <Link
+              to="/log-in"
+              className="text-white  no-underline hover:underline  hover:text-gray-700"
+              onClick={signout}
+            >
               Sign-out
             </Link>
           </ul>
@@ -71,40 +105,3 @@ function Navbar() {
 }
 
 export default Navbar;
-
-
-
-
-  
-
-
-{/* <div>
-  <img src={profile_icon} alt="profile-icon" />
-  <ul>
-    <li>
-      <a
-        className= "text-white  no-underline hover:underline  hover:text-gray-700"
-        href="/mylistings"
-      >
-        My Listings
-      </a>
-    </li>
-    <li>
-      <a
-        className= "text-white  no-underline hover:underline  hover:text-gray-700"
-        href="/responses"
-      >
-        Responses
-      </a>
-    </li>
-    <li>
-      <a
-        className= "text-white  no-underline hover:underline  hover:text-gray-700"
-        onClick={signout}
-        href="/log-in"
-      >
-        Log-out
-      </a>
-    </li>
-  </ul>
-</div> */}

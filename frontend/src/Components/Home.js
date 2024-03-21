@@ -17,6 +17,8 @@ import mail from "../img/mail.svg";
 // import image from "../img/earth.svg";
 import { Container, Row, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { ProjectCotext } from "../Context/ProjectCotext";
+import Addproperty from "./PostItem";
 
 const Home = () => {
   const [name, setName] = useState("");
@@ -32,9 +34,7 @@ const Home = () => {
   const ref = useRef();
   AOS.init();
 
-   
   AOS.init({
-    
     disable: false, // accepts following values: 'phone', 'tablet', 'mobile', boolean, expression or function
     startEvent: "DOMContentLoaded", // name of the event dispatched on the document, that AOS should initialize on
     initClassName: "aos-init", // class applied after initialization
@@ -78,11 +78,12 @@ const Home = () => {
     setEmail("");
     setMessage("");
   };
+  const { showPostModal, setShowPostModal } = ProjectCotext();
 
   return (
     <>
       <Navbar />
-      <div data-aos="fade-right" className="main">
+      {showPostModal ? <Addproperty />:  <div data-aos="fade-right" className="main">
         <div className="intro">
           <div className="part-1">
             <div className="title">
@@ -100,7 +101,8 @@ const Home = () => {
           </div>
           <div className="part-2"></div>
         </div>
-      </div>
+      </div>}
+     
 
       <div data-aos="fade-left">
         <Container fluid>
@@ -171,9 +173,6 @@ const Home = () => {
             <span className="symbol">/&#62;</span>
           </h4>
         </div>
-        {/* <h5 style={{ textAlign: "center" }}>
-          Copyright © 2022. All rights reserved.
-        </h5> */}
       </div>
     </>
   );

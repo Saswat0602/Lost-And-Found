@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Modal from 'react-modal';
 
 import Signup from "./Components/Signup";
 import Login from "./Components/Login";
@@ -12,12 +13,12 @@ import Home from "./Components/Home";
 // import ItemPage from "./Components/ItemPage";
 import MyListings from "./Components/MyListings";
 import Feed from "./Components/Feed";
+import { StateProvider } from "./Context/ProjectCotext";
+import LostItem from "./Components/Lost_item"
 
 // window.OneSignal = window.OneSignal || [];
 // const OneSignal = window.OneSignal;
 function App() {
-
-
   // useEffect(() => {
   //   OneSignal.push(() => {
   //     OneSignal.init({
@@ -31,18 +32,21 @@ function App() {
   // }, []);
   return (
     <>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/sign-up" element={<Signup />} />
-          <Route path="/log-in" element={<Login />} />
-          <Route path="/mylistings" element={<MyListings />} />
-          <Route path="/responses" element={<Response />} />
-          {/* <Route path="/:item" element={<ItemPage />} /> */}
-          <Route path="/feed" element={<Feed />} />
-        </Routes>
-        <ToastContainer />
-      </Router>
+      <StateProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/sign-up" element={<Signup />} />
+            <Route path="/log-in" element={<Login />} />
+            <Route path="/mylistings" element={<MyListings />} />
+            <Route path="/responses" element={<Response />} />
+            {/* <Route path="/:item" element={<ItemPage />} /> */}
+            <Route path="/feed" element={<Feed />} />
+            <Route path="/LostItem" element={<LostItem />} />
+          </Routes>
+          <ToastContainer />
+        </Router>
+      </StateProvider>
     </>
   );
 }
