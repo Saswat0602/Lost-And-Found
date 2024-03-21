@@ -32,10 +32,9 @@ const Home = () => {
   const ref = useRef();
   AOS.init();
 
-  // You can also pass an optional settings object
-  // below listed default settings
+   
   AOS.init({
-    // Global settings:
+    
     disable: false, // accepts following values: 'phone', 'tablet', 'mobile', boolean, expression or function
     startEvent: "DOMContentLoaded", // name of the event dispatched on the document, that AOS should initialize on
     initClassName: "aos-init", // class applied after initialization
