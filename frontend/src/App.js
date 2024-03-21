@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Modal from 'react-modal';
 
 import Signup from "./Components/Signup";
 import Login from "./Components/Login";
