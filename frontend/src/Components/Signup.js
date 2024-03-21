@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../css/newSignup.css";
 import axios from "axios";
 import Navbar from "../Components/Navbar";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function Signup(props) {
@@ -41,7 +41,7 @@ function Signup(props) {
     })
       .then((response) => {
         setInfo(response.data);
-        if (response.data === "Done") {
+        if (response.data.msg === "User created successfully") {
           navigate("/log-in");
           toast.success(response.data.msg, {
             position: "top-right",
@@ -150,9 +150,9 @@ function Signup(props) {
           </button>
           <p style={{ color: "white" }}>
             Have an account?{" "}
-            <a style={{ color: "black" }} href="/log-in">
+            <Link className="text-blue-500 no-underline hover:underline " to="/log-in">
               Click here
-            </a>
+            </Link>
           </p>
         </form>
       </div>

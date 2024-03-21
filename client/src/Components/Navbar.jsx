@@ -72,39 +72,3 @@ function Navbar() {
 
 export default Navbar;
 
-
-
-
-  
-
-
-{/* <div>
-  <img src={profile_icon} alt="profile-icon" />
-  <ul>
-    <li>
-      <a
-        style={{ textDecoration: "none", color: "white" }}
-        href="/mylistings"
-      >
-        My Listings
-      </a>
-    </li>
-    <li>
-      <a
-        style={{ textDecoration: "none", color: "white" }}
-        href="/responses"
-      >
-        Responses
-      </a>
-    </li>
-    <li>
-      <a
-        style={{ textDecoration: "none", color: "white" }}
-        onClick={signout}
-        href="/log-in"
-      >
-        Log-out
-      </a>
-    </li>
-  </ul>
-</div> */}

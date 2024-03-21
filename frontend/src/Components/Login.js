@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../css/newSignup.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 import { Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
@@ -112,9 +112,9 @@ function Login() {
           </button>
           <p style={{ color: "white" }}>
             Don't have an account?{" "}
-            <a style={{ color: "black" }} href="/sign-up">
+            <Link className="text-blue-500 no-underline hover:underline " to="/sign-up">
               Click here
-            </a>
+            </Link>
           </p>
         </form>
       </div>
