@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Modal from "react-modal";
-import "../css/feed.css"; 
+import "../css/feed.css";
 import axios from "axios";
 import { ProjectCotext } from "../Context/ProjectCotext";
 
@@ -39,8 +39,10 @@ function AddItemModal() {
 
 
   useEffect(() => {
-    getAuthdata();
-  }, []);
+    if(showPostModal){
+      getAuthdata();
+    }
+  }, [showPostModal]);
   const token = localStorage.getItem("token");
   const getAuthdata = async () => {
     const data = localStorage.getItem("token");
@@ -70,7 +72,7 @@ function AddItemModal() {
     setType("")
   };
 
-  
+
   const handleAddItem = async (e) => {
     e.preventDefault();
     if (!token) {
@@ -86,7 +88,7 @@ function AddItemModal() {
       });
       return;
     }
-       if (!name || !description  ||!question || !type) {
+    if (!name || !description || !question || !type) {
       toast.warn("All fields are required", {
         position: "top-right",
         autoClose: 3000,

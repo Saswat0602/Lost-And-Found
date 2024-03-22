@@ -20,6 +20,8 @@ import { Link } from "react-router-dom";
 import { ProjectCotext } from "../Context/ProjectCotext";
 
 const Home = () => {
+  const token = window.localStorage.getItem("token");
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -54,7 +56,6 @@ const Home = () => {
     setEmail("");
     setMessage("");
   };
-  const { showPostModal, setShowPostModal } = ProjectCotext();
 
   return (
     <>
@@ -94,11 +95,14 @@ const Home = () => {
                 />
                 <h4>Create an account</h4>
                 <p>Initially, you have to create an account to get started.</p>
-                <Link to="/log-in">
+                {!token&&
+                  <Link to="/log-in">
                   <button className=" px-4 py-2 rounded-md  text-blue-500 hover:text-blue-900 transition duration-300 ease-in-out">
                     Sign Up
                   </button>
                 </Link>
+                }
+                
               </div>
               <div className="info">
                 <img

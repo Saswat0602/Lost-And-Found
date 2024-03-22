@@ -1,8 +1,7 @@
 import React from "react";
 import { setConstraint } from "../constraints";
 import "../css/Navbar.css";
-import axios from "axios";
-import LostItem from "./Lost_item";
+import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { ProjectCotext } from "../Context/ProjectCotext";
 import AddItemModal from "../Components/AddItemModal"
@@ -12,18 +11,18 @@ function Navbar() {
 
   const signout = () => {
     setConstraint(false);
+    localStorage.clear();
+    toast.success("User Loggedout ", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
 
-    axios({
-      url: "http://localhost:5000/api/signout",
-      method: "POST",
-      headers: {
-        Authorization: token ? `Bearer ${token}` : "",
-      },
-    })
-      .then(localStorage.clear())
-      .catch((error) => {
-        console.log(error);
-      });
   };
   return (
     <>
