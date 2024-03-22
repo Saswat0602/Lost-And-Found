@@ -4,11 +4,12 @@ import "../css/feed.css";
 import "../css/mylisting.css";
 import Axios from "axios";
 import lostfound from "../assets/bgimage.jpg";
+import LoaderSkeleton from "../Components/LoaderSkeleton"
 
 export default function Feed() {
   const [lostItems, setLostItems] = useState([]);
   const token = localStorage.getItem("token");
-
+const [Loading, setLoading] = useState(true)
   useEffect(() => {
     // Define a function to fetch user's items
     const fetchUserItems = async () => {
@@ -20,7 +21,9 @@ export default function Feed() {
         };
         const response = await Axios.get("http://localhost:5000/api/getItemsForUser", config);
         setLostItems(response.data); 
+        setLoading(false)
       } catch (error) {
+        setLoading(false)
         console.error("Error fetching user's items:", error);
       }
     };
@@ -73,14 +76,22 @@ export default function Feed() {
       </div>
     ));
   };
+  
   return (
     <div>
       <Navbar />
-      <div className="listing-title">
-        <h2>My Listings</h2>
-        <div className="title-border"></div>
-      </div>
-      <div className="item-container">{renderLostItems()}</div>
+      {Loading ? (
+        <LoaderSkeleton />
+      ) : (
+        <div>
+          <div className="listing-title">
+            <h2>My Listings</h2>
+            <div className="title-border"></div>
+          </div>
+          <div className="item-container">{renderLostItems()}</div>
+        </div>
+      )}
     </div>
   );
-}
+};
+

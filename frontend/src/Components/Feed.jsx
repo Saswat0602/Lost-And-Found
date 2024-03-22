@@ -4,7 +4,7 @@ import Navbar from "./Navbar";
 import "../css/feed.css";
 import Axios from "axios";
 import lostfound from "../assets/bgimage.jpg";
-
+import LoaderSkeleton from "../Components/LoaderSkeleton";
 export default function Feed() {
   const [user_info, setuser_info] = useState({
     name: JSON.parse(localStorage.getItem("name")) || "",
@@ -12,7 +12,7 @@ export default function Feed() {
   });
 
   const [lostItems, setLostItems] = useState([]);
-
+  const [Loading, setLoading] = useState(true);
 
   setConstraint(true);
 
@@ -23,10 +23,12 @@ export default function Feed() {
     })
       .then((response) => {
         let data = response.data;
-        setLostItems(data); 
+        setLostItems(data);
+        setLoading(false);
       })
       .catch((err) => {
         console.log("Error :", err);
+        setLoading(false);
       });
   }, []);
   function formatDate(dateString) {
@@ -88,18 +90,25 @@ export default function Feed() {
           Welcome Back {user_info.name ?? " "} 👋!
         </h2>
       </div>
-      <div>
-        <h2 style={{ textAlign: "center" }}>Lost items :</h2>
-        <div className="title-border"></div>
-        <div className="item-container">{renderLostItems()}</div>
-      </div>
-      <div className=" h-40 max-h-screen">
-        <h2 style={{ textAlign: "center" }}>Found items :</h2>
-        <div className="title-border"></div>
-        <div className="flex justify-center font-serif mt-10">
-          No Found Items Till Now{" "}
+
+      {Loading ? (
+        <LoaderSkeleton />
+      ) : (
+        <div>
+          <div>
+            <h2 style={{ textAlign: "center" }}>Lost items :</h2>
+            <div className="title-border"></div>
+            <div className="item-container">{renderLostItems()}</div>
+          </div>
+          <div className=" h-40 max-h-screen">
+            <h2 style={{ textAlign: "center" }}>Found items :</h2>
+            <div className="title-border"></div>
+            <div className="flex justify-center font-serif mt-10">
+              No Found Items Till Now{" "}
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
