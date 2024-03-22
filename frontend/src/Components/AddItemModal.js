@@ -18,7 +18,7 @@ function AddItemModal() {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [question, setQuestion] = useState("rtyuio");
+  const [question, setQuestion] = useState("");
   const [type, setType] = useState("");
 
   const handleNameChange = (e) => {
@@ -38,34 +38,36 @@ function AddItemModal() {
   };
 
 
-  // const [token, setToken] = useState("");
   useEffect(() => {
-    // getAuthdata();
+    getAuthdata();
   }, []);
   const token = localStorage.getItem("token");
-  // const getAuthdata = async () => {
-  //   const data = localStorage.getItem("token");
-  //   if (!data) {
-  //     toast.warn("Please login ", {
-  //       position: "top-right",
-  //       autoClose: 3000,
-  //       hideProgressBar: false,
-  //       closeOnClick: true,
-  //       pauseOnHover: true,
-  //       draggable: true,
-  //       progress: undefined,
-  //       theme: "colored",
-  //     });
-  //     navigate("/log-in");
-  //   } else {
-  //     setToken(data);
-  //   }
-  // };
+  const getAuthdata = async () => {
+    const data = localStorage.getItem("token");
+    if (!data) {
+      toast.warn("Please login ", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      navigate("/log-in");
+    } else {
+    }
+  };
 
   const navigate = useNavigate();
 
   const handleCancel = () => {
     setShowPostModal(false);
+    setName("")
+    setDescription("")
+    setQuestion("")
+    setType("")
   };
 
   
@@ -84,6 +86,20 @@ function AddItemModal() {
       });
       return;
     }
+       if (!name || !description  ||!question || !type) {
+      toast.warn("All fields are required", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      return;
+    }
+
     try {
       const postData = {
         name: name,
@@ -119,6 +135,7 @@ function AddItemModal() {
           progress: undefined,
           theme: "colored",
         });
+        handleCancel()
       } else {
         toast.success("Item Posted successfully", {
           position: "top-right",
@@ -130,7 +147,7 @@ function AddItemModal() {
           progress: undefined,
           theme: "colored",
         });
-        navigate("/");
+        handleCancel()
       }
     } catch (error) {
       toast.error("An error occurred while adding the Item", {
@@ -143,6 +160,8 @@ function AddItemModal() {
         progress: undefined,
         theme: "colored",
       });
+      handleCancel()
+
     }
   };
 
