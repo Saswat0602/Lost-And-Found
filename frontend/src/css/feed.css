@@ -28,7 +28,9 @@
 .item-container {
   display: flex;
   flex-wrap: wrap; 
-  justify-content: space-around;
+  justify-content: flex-start;
+  align-items:flex-start;
+
 }
 
 .item-card {
@@ -43,6 +45,7 @@
   flex-direction: column;
   /* justify-content: center; */
   align-items:flex-start;
+  min-height: 400px;
 }
 
 .item-card h3 {
