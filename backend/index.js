@@ -8,7 +8,6 @@ import bodyParser from "body-parser";
 import user from "./routes/user.js";
 import item from "./routes/item.js"
 import cors from "cors";
-import  authMiddleware from './middleware/authMiddleware.js';
 dotenv.config();
 const app = express();
 
