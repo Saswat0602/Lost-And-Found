@@ -33,7 +33,8 @@ const itemSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  
 });
 
 const Item = mongoose.model("Item", itemSchema);

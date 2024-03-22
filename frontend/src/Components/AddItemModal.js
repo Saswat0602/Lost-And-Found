@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";import Modal from "react-modal";
-import "../css/feed.css"; // Import your modal styles if needed
+import { toast } from "react-toastify";
+import Modal from "react-modal";
+import "../css/feed.css"; 
+import axios from "axios";
 import { ProjectCotext } from "../Context/ProjectCotext";
 
 Modal.setAppElement("#root");
@@ -18,7 +20,6 @@ function AddItemModal() {
   const [description, setDescription] = useState("");
   const [question, setQuestion] = useState("rtyuio");
   const [type, setType] = useState("");
-  const [location, setLocation] = useState("");
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -36,15 +37,12 @@ function AddItemModal() {
     setType(e.target.value);
   };
 
-  const handleLocationChange = (e) => {
-    setLocation(e.target.value);
-  };
-  // const [token, setToken] = useState(""); 
-  const port = 5000;
+
+  // const [token, setToken] = useState("");
   useEffect(() => {
     // getAuthdata();
   }, []);
-const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
   // const getAuthdata = async () => {
   //   const data = localStorage.getItem("token");
   //   if (!data) {
@@ -60,35 +58,19 @@ const token = localStorage.getItem("token");
   //     });
   //     navigate("/log-in");
   //   } else {
-  //     setToken(data); 
+  //     setToken(data);
   //   }
   // };
 
   const navigate = useNavigate();
 
-
-
   const handleCancel = () => {
     setShowPostModal(false);
   };
 
+  
   const handleAddItem = async (e) => {
-    console.log("token",token)
     e.preventDefault();
-    // if (!name || !description || !location ||!question || !type) {
-    //   toast.warn("All fields are required", {
-    //     position: "top-right",
-    //     autoClose: 3000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //     theme: "colored",
-    //   });
-    //   return;
-    // }
-
     if (!token) {
       toast.error("You need to be authenticated to add a new property", {
         position: "top-right",
@@ -103,34 +85,30 @@ const token = localStorage.getItem("token");
       return;
     }
     try {
-
       const postData = {
         name: name,
         description: description,
         question: question,
         type: type,
-        price: 10.99,
         imgUris: [
           "https://example.com/image7555.jpg",
-          "https://example.com/image3452.jpg"
+          "https://example.com/image3452.jpg",
         ],
         thumbnailUrls: [
           "https://example.com/thumbnail909090.jpg",
-          "https://example.com/thumbnail898092.jpg"
-        ]
+          "https://example.com/thumbnail898092.jpg",
+        ],
       };
-      console.log(postData,"postData")
-      const response = await fetch(`http://localhost:5000/api/postitem`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(postData)
-           });
-
-      const data = await response.json();
-      console.log("data==========", data);
-      if (response.status >= 400 || !data) {
+      const response = await axios.post(
+        "http://localhost:5000/api/postitem",
+        postData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status >= 400 || !response.data) {
         toast.error("Some error occurred while adding the Item", {
           position: "top-right",
           autoClose: 3000,
@@ -142,7 +120,7 @@ const token = localStorage.getItem("token");
           theme: "colored",
         });
       } else {
-        toast.success("Item Poasted successfully", {
+        toast.success("Item Posted successfully", {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -167,8 +145,6 @@ const token = localStorage.getItem("token");
       });
     }
   };
-
-
 
   return (
     <div>
@@ -233,14 +209,14 @@ const token = localStorage.getItem("token");
             />
 
             <label htmlFor="location" className="ml-2">
-              Location
+              Questions
             </label>
             <input
               type="text"
               className="p-1 border rounded-lg"
               name="location"
-              placeholder="Enter the Where You find this Item "
-              onChange={handleLocationChange}
+              placeholder="Enter the Question "
+              onChange={handleQuestionChange}
             />
 
             <label htmlFor="description" className="ml-2">

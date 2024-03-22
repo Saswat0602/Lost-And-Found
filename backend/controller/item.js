@@ -3,16 +3,13 @@ import Item from "../model/items.js";
 
 const addItems = async (req, res) => {
   try {
-    const { name, description, question, type, price, imgUris, thumbnailUrls } =
+    const { name, description, question, type, imgUris, thumbnailUrls } =
       req.body;
-    console.log(req.body,"reqlsss .bodyyyyy");
 
-    // Check if all reqauired fields are provided
     if (
       !name ||
       !description ||
       !question ||
-      !price ||
       !type ||
       !imgUris ||
       !thumbnailUrls
@@ -103,7 +100,7 @@ const getItemById = async (req, res) => {
 const editItem = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, description, question, type, price, imgUris, thumbnailUrls } =
+    const { name, description, question, type, imgUris, thumbnailUrls } =
       req.body;
 
     // Check if required fields are provided
@@ -111,7 +108,6 @@ const editItem = async (req, res) => {
       !name ||
       !description ||
       !question ||
-      !price ||
       !type ||
       !imgUris ||
       !thumbnailUrls
@@ -135,7 +131,6 @@ const editItem = async (req, res) => {
     item.description = description;
     item.question = question;
     item.type = type;
-    item.price = price;
     item.imgUri = imgUris;
     item.thumbnailUrl = thumbnailUrls;
 
