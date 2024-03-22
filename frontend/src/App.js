@@ -14,7 +14,7 @@ import MyListings from "./Components/MyListings";
 import Feed from "./Components/Feed";
 import { StateProvider } from "./Context/ProjectCotext";
 import NotFound from "./Components/NotFound";
-
+import ItemDetails from "./Components/ItemDetails";
 // window.OneSignal = window.OneSignal || [];
 // const OneSignal = window.OneSignal;
 function App() {
@@ -39,7 +39,7 @@ function App() {
             <Route path="/log-in" element={<Login />} />
             <Route path="/mylistings" element={<MyListings />} />
             <Route path="/responses" element={<Response />} />
-            {/* <Route path="/:item" element={<ItemPage />} /> */}
+            <Route path="/mylistings/item/:itemID" element={<ItemDetails />} />
             <Route path="/feed" element={<Feed />} />
             <Route path="*" element={<NotFound />} />
 
