@@ -5,7 +5,7 @@ const addItems = async (req, res) => {
   try {
     const { name, description, question, type, price, imgUris, thumbnailUrls } =
       req.body;
-    console.log(req.body);
+    console.log(req.body,"reqlsss .bodyyyyy");
 
     // Check if all reqauired fields are provided
     if (
@@ -170,7 +170,9 @@ const deleteItem = async (req, res) => {
 
     // Check if the item's author matches the authenticated user
     if (item.author.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ error: "Unauthorized to delete this item" });
+      return res
+        .status(403)
+        .json({ error: "Unauthorized to delete this item" });
     }
 
     // Delete the item from the database
@@ -184,5 +186,11 @@ const deleteItem = async (req, res) => {
   }
 };
 
-
-export { addItems, getAllItems, editItem, getItemsForUser ,deleteItem ,getItemById};
+export {
+  addItems,
+  getAllItems,
+  editItem,
+  getItemsForUser,
+  deleteItem,
+  getItemById,
+};

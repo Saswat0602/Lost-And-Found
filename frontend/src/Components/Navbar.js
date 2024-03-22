@@ -5,6 +5,7 @@ import axios from "axios";
 import LostItem from "./Lost_item";
 import { Link } from "react-router-dom";
 import { ProjectCotext } from "../Context/ProjectCotext";
+import AddItemModal from "../Components/AddItemModal"
 function Navbar() {
   const token = window.localStorage.getItem("token");
   const { showPostModal, setShowPostModal } = ProjectCotext();
@@ -12,7 +13,6 @@ function Navbar() {
   const signout = () => {
     setConstraint(false);
 
-    console.log("Signed out !");
     axios({
       url: "http://localhost:5000/api/signout",
       method: "POST",
@@ -71,6 +71,7 @@ function Navbar() {
           >
             Post Item
           </button>
+          <AddItemModal/>
           <ul style={{ paddingLeft: 0 }}>
             <Link
               to="/feed"

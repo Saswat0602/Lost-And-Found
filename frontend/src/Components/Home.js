@@ -18,7 +18,6 @@ import mail from "../img/mail.svg";
 import { Container, Row, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { ProjectCotext } from "../Context/ProjectCotext";
-import AddItem from "./PostItem";
 
 const Home = () => {
   const [name, setName] = useState("");
@@ -60,7 +59,7 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      {showPostModal ? <AddItem />:  <div className="main">
+        <div className="main">
         <div className="intro">
           <div className="part-1">
             <div className="title">
@@ -78,8 +77,7 @@ const Home = () => {
           </div>
           <div className="part-2"></div>
         </div>
-      </div>}
-     
+      </div>     
 
       <div>
         <Container fluid>
