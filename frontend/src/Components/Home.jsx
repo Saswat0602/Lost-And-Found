@@ -60,7 +60,7 @@ const Home = () => {
     <>
       <Navbar />
         <div className="main">
-        <div className="intro">
+        <div className="intro bg-sky-100">
           <div className="part-1">
             <div className="title">
               <h1 id="title-h">Lost and Found</h1>
@@ -75,7 +75,7 @@ const Home = () => {
               </button>
             </div>
           </div>
-          <div className="part-2">
+          <div className="part-2 ">
           <img src={lostfound} alt="Lost and Found" />
 
           </div>
