@@ -1,33 +1,37 @@
-import Items from "../model/items";
 import mongoose from "mongoose";
-import { storage, cloudinary } from "../cloudinary/index";
-import multer from "multer";
-
-const upload = multer({ storage });
+import Item from "../model/items.js";
 
 const addItems = async (req, res) => {
   try {
-    const { name, description, question, type, price } = req.body;
+    const { name, description, question, type, price, imgUris, thumbnailUrls } = req.body;
     console.log(req.body);
-    if (!name || !description || !question || !price || !type || !req.file) {
+    
+    // Check if all reqauired fields are provided
+    if (!name || !description || !question || !price || !type || !imgUris || !thumbnailUrls) {
       return res.status(403).json({
-        error: "Please fill up all fields and upload a single picture",
+        error: "Please fill up all fields and provide image URIs and thumbnail URLs",
       });
     }
-    try {
-      const newItems = new Items({
-        name,
-        description,
-        itemPictures: { url: req.file.path, filename: req.file.filename },
-        author: req.user._id,
-        type,
-      });
+    
+    // Check if user is authenticated
+    if (!req.user || !req.user._id) {
+      return res.status(403).json({ error: "User not authenticated" });
+    }
+    
+    // Create new item
+    const newItem = new Item({
+      name,
+      description,
+      question,
+      type,
+      imgUri: imgUris,
+      thumbnailUrl: thumbnailUrls,
+      author: req.user._id,
+    });
 
-      await newItems.save();
-      res.status(200).json({ msg: "Item uploaded successfully" });
-    } catch (e) {
-      res.status(400).json({ msg: e.message });
-    }
+    // Save the new item
+    await newItem.save();
+    res.status(200).json({ msg: "Item uploaded successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });

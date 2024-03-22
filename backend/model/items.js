@@ -2,11 +2,6 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
-const ImageSchema = new Schema({
-  url: String,
-  filename: String,
-});
-
 const itemSchema = new Schema({
   author: {
     type: Schema.Types.ObjectId,
@@ -27,7 +22,14 @@ const itemSchema = new Schema({
     type: String,
     required: true,
   },
-  itemPictures: [ImageSchema],
+  imgUri:  {
+    type: [String], 
+    required: true,
+  },
+  thumbnailUrl: {
+    type: [String], 
+    required: true,
+  },
 });
 
 const Item = mongoose.model("Item", itemSchema);

@@ -1,13 +1,10 @@
 import express from 'express';
-import multer from 'multer';
-import addItems from '../controller/item';
-
+import {addItems} from "../controller/item.js"
+import authMiddleware from '../middleware/authMiddleware.js';
+import validate from '../middleware/validate.js'; // Import the validate middleware
+import verifyAuth from '../middleware/verify.js';
 const router = express.Router();
 
-// Define storage using multer
-const storage = multer.memoryStorage();
-
-// Define a route for posting items
-router.post('/api/postitem', addItems);
+router.post('/api/postitem', verifyAuth, addItems);
 
 export default router;

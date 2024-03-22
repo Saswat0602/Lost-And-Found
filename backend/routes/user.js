@@ -1,5 +1,6 @@
 import express from "express";
 import { login, register } from "../controller/user.js";
+
 import validate from '../middleware/validate.js'
 const router = express.Router();
 
@@ -19,12 +20,11 @@ router.put("/api/login/:id", async (req, res) => {
 });
 
 // Route for allitms page
-router.get("/api/allitems", validate, (req, res) => {
-  console.log(req.correctUser);
+// router.get("/api/allitems", validate, (req, res) => {
+//   console.log(req.correctUser);
 
-  const finalUser = req.correctUser;
-
-  res.send(finalUser);
-});
+//   const finalUser = req.correctUser;
+//   res.send(finalUser);
+// });
 
 export default router;
