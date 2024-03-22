@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../css/newSignup.css";
 import axios from "axios";
-import Navbar from "../Components/Navbar";
+import Navbar from "./Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 

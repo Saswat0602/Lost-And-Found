@@ -1,33 +1,34 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../Components/Navbar";
+import { setConstraint } from "../constraints";
+import Navbar from "./Navbar";
 import "../css/feed.css";
-import "../css/mylisting.css";
 import Axios from "axios";
 import lostfound from "../assets/bgimage.jpg";
 
 export default function Feed() {
+  const [user_info, setuser_info] = useState({
+    name: JSON.parse(localStorage.getItem("name")) || "",
+    id: JSON.parse(localStorage.getItem("user")) || "",
+  });
+
   const [lostItems, setLostItems] = useState([]);
-  const token = localStorage.getItem("token");
+
+
+  setConstraint(true);
 
   useEffect(() => {
-    // Define a function to fetch user's items
-    const fetchUserItems = async () => {
-      try {
-        const config = {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        };
-        const response = await Axios.get("http://localhost:5000/api/getItemsForUser", config);
-        setLostItems(response.data); 
-      } catch (error) {
-        console.error("Error fetching user's items:", error);
-      }
-    };
-    fetchUserItems(); 
+    Axios({
+      url: "http://localhost:5000/api/getAllItems",
+      method: "GET",
+    })
+      .then((response) => {
+        let data = response.data;
+        setLostItems(data); 
+      })
+      .catch((err) => {
+        console.log("Error :", err);
+      });
   }, []);
-
-
   function formatDate(dateString) {
     const months = [
       "Jan",
@@ -73,14 +74,32 @@ export default function Feed() {
       </div>
     ));
   };
+
   return (
     <div>
-      <Navbar />
-      <div className="listing-title">
-        <h2>My Listings</h2>
-        <div className="title-border"></div>
+      <div>
+        <Navbar />
+        <h2
+          style={{
+            fontFamily: "'Noto Sans JP', sans-serif",
+            marginLeft: "5px",
+          }}
+        >
+          Welcome Back {user_info.name ?? " "} 👋!
+        </h2>
       </div>
-      <div className="item-container">{renderLostItems()}</div>
+      <div>
+        <h2 style={{ textAlign: "center" }}>Lost items :</h2>
+        <div className="title-border"></div>
+        <div className="item-container">{renderLostItems()}</div>
+      </div>
+      <div className=" h-40 max-h-screen">
+        <h2 style={{ textAlign: "center" }}>Found items :</h2>
+        <div className="title-border"></div>
+        <div className="flex justify-center font-serif mt-10">
+          No Found Items Till Now{" "}
+        </div>
+      </div>
     </div>
   );
 }

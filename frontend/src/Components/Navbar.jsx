@@ -4,7 +4,7 @@ import "../css/Navbar.css";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { ProjectCotext } from "../Context/ProjectCotext";
-import AddItemModal from "../Components/AddItemModal"
+import AddItemModal from "./AddItemModal"
 function Navbar() {
   const token = window.localStorage.getItem("token");
   const { showPostModal, setShowPostModal } = ProjectCotext();
