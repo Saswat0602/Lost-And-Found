@@ -12,11 +12,33 @@ const Addproperty = () => {
   const [input, setInput] = useState({
     name: "",
     description: "",
-    location: "",
-    price: "",
+    question: "",
     type: "",
-    amenities: "",
   });
+  const [token, setToken] = useState(""); 
+  const port = 5000;
+  useEffect(() => {
+    getAuthdata();
+  }, []);
+
+  const getAuthdata = async () => {
+    const data = localStorage.getItem("token");
+    if (!data) {
+      toast.warn("Please login ", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      navigate("/log-in");
+    } else {
+      setToken(data); 
+    }
+  };
 
   const navigate = useNavigate();
 
@@ -32,12 +54,97 @@ const Addproperty = () => {
     setShowPostModal(false);
   };
 
+  const handleAddItem = async (e) => {
+    e.preventDefault();
+    const { name, description, location ,type,question } = input;
+    if (!name || !description || !location ||!question || !type) {
+      toast.warn("All fields are required", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      return;
+    }
+
+    if (!token) {
+      toast.error("You need to be authenticated to add a new property", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      return;
+    }
+    try {
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("question", question);
+      formData.append("type", type);
+
+      const response = await fetch(`http://localhost:${port}/api/postitem`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      const data = await response.json();
+      console.log("data", data);
+      if (response.status >= 400 || !data) {
+        toast.error("Some error occurred while adding the Item", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      } else {
+        toast.success("Item Poasted successfully", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        navigate("/property");
+      }
+    } catch (error) {
+      toast.error("An error occurred while adding the Item", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+  };
+
   return (
     <div className="bg-slate-50  p-3 border rounded-xl shadow-xl max-w-xl mt-4 mx-auto sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%]">
       <h2 className="text-3xl  text-blue-700 font-bold text-center">
-        Add New Item
+        Post A Item
       </h2>
-      <form className="flex flex-col gap-3 mt-5" encType="multipart/form-data">
+      <form className="flex flex-col gap-2 mt-4" encType="multipart/form-data">
         <label htmlFor="name" className="ml-2">
           Name
         </label>
@@ -49,13 +156,13 @@ const Addproperty = () => {
           onChange={handleChange}
         />
         <label htmlFor="type" className="ml-2">
-          Proerty Type
+          Item Type
         </label>
         <input
           type="text"
           className="p-1 border rounded-lg"
           name="type"
-          placeholder="Enter your name of the Item "
+          placeholder="Enter your type of the Item "
           onChange={handleChange}
         />
         <label htmlFor="picture" className="ml-2 ">
@@ -88,30 +195,10 @@ const Addproperty = () => {
           type="text"
           className="p-1 border rounded-lg"
           name="location"
-          placeholder="Enter the location of this Item "
+          placeholder="Enter the Where You find this Item "
           onChange={handleChange}
         />
 
-        <label htmlFor="price" className="ml-2">
-          Price
-        </label>
-        <input
-          type="text"
-          className="p-1 border rounded-lg"
-          name="price"
-          placeholder="Add price"
-          onChange={handleChange}
-        />
-        <label htmlFor="amenities" className="ml-2">
-          Add Amenities
-        </label>
-        <input
-          type="text"
-          className="p-1 border rounded-lg"
-          name="amenities"
-          placeholder="Enter your name of the Item "
-          onChange={handleChange}
-        />
         <label htmlFor="description" className="ml-2">
           Description
         </label>
@@ -123,24 +210,21 @@ const Addproperty = () => {
           rows={3}
           onChange={handleChange}
         />
-        <button className="bg-[#074FB2] text-white py-2 rounded-lg mt-3 hover:bg-blue-600">
-          Add Item
-        </button>
         <div className="flex justify-around gap-3 mt-4">
           <div className="flex justify-center items-center">
             <button
               onClick={handleCancel}
-              className="py-2 px-4 bg-red-500 border rounded-lg text-sm hover:bg-slate-400"
+              className="py-2 px-4 bg-red-400 border rounded-lg text-sm hover:bg-slate-400"
             >
               Cancel
             </button>
           </div>
           <div className="flex justify-center items-center">
             <button
-              // onClick={() => navigate("/")}
-              className="py-2 px-4 bg-blue-300 border rounded-lg text-sm hover:bg-slate-400"
+              onClick={() => handleAddItem()}
+              className="py-2 px-4 bg-sky-300 border rounded-lg text-sm hover:bg-slate-400"
             >
-              Home
+              Add Item
             </button>
           </div>
         </div>
