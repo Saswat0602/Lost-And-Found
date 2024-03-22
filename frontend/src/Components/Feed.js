@@ -13,7 +13,6 @@ export default function Feed() {
 
   const [lostItems, setLostItems] = useState([]);
 
-  console.log(lostItems, "lostItems");
 
   setConstraint(true);
 
@@ -24,8 +23,7 @@ export default function Feed() {
     })
       .then((response) => {
         let data = response.data;
-        console.log(data, "data");
-        setLostItems(data); // Set the lost items from API response
+        setLostItems(data); 
       })
       .catch((err) => {
         console.log("Error :", err);
