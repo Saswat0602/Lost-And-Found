@@ -34,7 +34,7 @@ function App() {
       <StateProvider>
         <Router>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home/>} />
             <Route path="/sign-up" element={<Signup />} />
             <Route path="/log-in" element={<Login />} />
             <Route path="/mylistings" element={<MyListings />} />

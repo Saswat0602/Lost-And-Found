@@ -54,9 +54,6 @@ const Home = () => {
     anchorPlacement: "top-bottom", // defines which position of the element regarding to window should trigger the animation
   });
 
-  // const e=document.getElementById('.title-h')
-  // const annotation=annotate(e,{ type: 'underline' })
-  // annotation.show()
   const sendMessage = () => {
     const data = {
       name,
