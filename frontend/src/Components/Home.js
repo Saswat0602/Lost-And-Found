@@ -13,10 +13,8 @@ import github from "../img/github.svg";
 import linkedin from "../img/linkedin.svg";
 import mail from "../img/mail.svg";
 import lostfound from "../assets/bgimage.jpg";
-// import feature from "../img/feature.svg";
 
-// import image from "../img/earth.svg";
-import { Container, Row, Form } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { ProjectCotext } from "../Context/ProjectCotext";
 
