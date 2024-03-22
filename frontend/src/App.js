@@ -14,6 +14,7 @@ import MyListings from "./Components/MyListings";
 import Feed from "./Components/Feed";
 import { StateProvider } from "./Context/ProjectCotext";
 import LostItem from "./Components/Lost_item"
+import NotFound from "./Components/NotFound";
 
 // window.OneSignal = window.OneSignal || [];
 // const OneSignal = window.OneSignal;
@@ -42,6 +43,8 @@ function App() {
             {/* <Route path="/:item" element={<ItemPage />} /> */}
             <Route path="/feed" element={<Feed />} />
             <Route path="/LostItem" element={<LostItem />} />
+            <Route path="*" element={<NotFound />} />
+
           </Routes>
           <ToastContainer />
         </Router>
