@@ -64,13 +64,11 @@ export default function Feed() {
     return `${day}${suffix} ${month} ${year}`;
   }
 
-
-
   // Function to render lost items in rows of four
   const renderLostItems = () => {
     return lostItems.map((item, index) => (
       <div key={index} className="item-card">
-      <img src={lostfound} alt="" />
+        <img src={lostfound} alt="" />
         <h4> Name of item :{item?.name}</h4>
         <p>Question: {item?.question}</p>
         <p>Item Descriptions:{item?.description}</p>
@@ -97,9 +95,12 @@ export default function Feed() {
         <div className="title-border"></div>
         <div className="item-container">{renderLostItems()}</div>
       </div>
-      <div>
+      <div className=" h-40 max-h-screen">
         <h2 style={{ textAlign: "center" }}>Found items :</h2>
         <div className="title-border"></div>
+        <div className="flex justify-center font-serif mt-10">
+          No Found Items Till Now{" "}
+        </div>
       </div>
     </div>
   );
