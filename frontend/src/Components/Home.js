@@ -12,6 +12,7 @@ import notification from "../img/notification.svg";
 import github from "../img/github.svg";
 import linkedin from "../img/linkedin.svg";
 import mail from "../img/mail.svg";
+import lostfound from "../assets/bgimage.jpg";
 // import feature from "../img/feature.svg";
 
 // import image from "../img/earth.svg";
@@ -76,7 +77,10 @@ const Home = () => {
               </button>
             </div>
           </div>
-          <div className="part-2"></div>
+          <div className="part-2">
+          <img src={lostfound} alt="Lost and Found" />
+
+          </div>
         </div>
       </div>     
 

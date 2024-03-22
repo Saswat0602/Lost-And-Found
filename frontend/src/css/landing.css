@@ -9,19 +9,15 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  flex-wrap: wrap-reverse;
-  /* height: 75hv; */
 }
 .part-1 {
   height: 500px;
-  width: 350px;
-  position: relative;
-  /* border: 3px solid green;  */
-}
-/* .part-2 {
   width: 500px;
-  height: 500px;
-} */
+}
+.part-2 {
+  width: 600px;
+  height: 800px;
+}
 
 .title {
   position: absolute;
