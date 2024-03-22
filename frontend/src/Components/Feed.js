@@ -12,7 +12,6 @@ export default function Feed() {
     id: JSON.parse(localStorage.getItem("user")) || ""
   });
   
-  console.log(user_info,"user_info")
   const ReadMore = ({ children }) => {
     const text = children;
     const [isReadMore, setIsReadMore] = useState(true);
@@ -36,13 +35,14 @@ export default function Feed() {
   useEffect(() => {
     // console.log("Test");
     Axios({
-      url: "http://localhost:5000/api/getitem",
+      url: "http://localhost:5000/api/getAllItems",
       method: "GET",
     })
       .then((response) => {
         // console.log(response.data.postitems);
         // console.log(response);
-        let data = response.data.postitems;
+        let data = response.data;
+        console.log(data,"data")
         let items = [];
         let Found_items = [];
         data.reverse().map((item) => {

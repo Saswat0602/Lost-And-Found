@@ -18,7 +18,7 @@ import mail from "../img/mail.svg";
 import { Container, Row, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { ProjectCotext } from "../Context/ProjectCotext";
-import Addproperty from "./PostItem";
+import AddItem from "./PostItem";
 
 const Home = () => {
   const [name, setName] = useState("");
@@ -60,7 +60,7 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      {showPostModal ? <Addproperty />:  <div className="main">
+      {showPostModal ? <AddItem />:  <div className="main">
         <div className="intro">
           <div className="part-1">
             <div className="title">

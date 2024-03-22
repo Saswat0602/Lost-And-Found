@@ -3,7 +3,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.css";
 import { Button, Modal, Form, Spinner } from "react-bootstrap";
 import { ProjectCotext } from "../Context/ProjectCotext";
-import Addproperty from "./PostItem";
+import AddItem from "./PostItem";
 
 function LostItem() {
   const { showPostModal, setShowPostModal } = ProjectCotext();

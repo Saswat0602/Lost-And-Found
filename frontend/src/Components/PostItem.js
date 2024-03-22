@@ -5,7 +5,7 @@ import { ProjectCotext } from "../Context/ProjectCotext";
 import "../css/landing.css";
 
 
-const Addproperty = () => {
+const AddItem = () => {
   const [image, setImage] = useState(null);
   const { showPostModal, setShowPostModal } = ProjectCotext();
 
@@ -19,7 +19,7 @@ const Addproperty = () => {
   const port = 5000;
   useEffect(() => {
     getAuthdata();
-  }, []);
+  }, [showPostModal]);
 
   const getAuthdata = async () => {
     const data = localStorage.getItem("token");
@@ -55,7 +55,8 @@ const Addproperty = () => {
   };
 
   const handleAddItem = async (e) => {
-    e.preventDefault();
+    console.log("token",token)
+    // e.preventDefault();
     const { name, description, location ,type,question } = input;
     if (!name || !description || !location ||!question || !type) {
       toast.warn("All fields are required", {
@@ -123,7 +124,7 @@ const Addproperty = () => {
           progress: undefined,
           theme: "colored",
         });
-        navigate("/property");
+        navigate("/");
       }
     } catch (error) {
       toast.error("An error occurred while adding the Item", {
@@ -233,4 +234,4 @@ const Addproperty = () => {
   );
 };
 
-export default Addproperty;
+export default AddItem;
