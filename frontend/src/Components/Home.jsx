@@ -33,7 +33,6 @@ const Home = () => {
   // };
   const ref = useRef();
 
-
   const sendMessage = () => {
     const data = {
       name,
@@ -59,8 +58,9 @@ const Home = () => {
   return (
     <>
       <Navbar />
-        <div className="main">
-        <div className="intro bg-sky-100">
+      <div className="bg-sky-100">
+      <div className="main">
+        <div className="intro">
           <div className="part-1">
             <div className="title">
               <h1 id="title-h">Lost and Found</h1>
@@ -76,11 +76,10 @@ const Home = () => {
             </div>
           </div>
           <div className="part-2 ">
-          <img src={lostfound} alt="Lost and Found" />
-
+            <img src={lostfound} alt="Lost and Found" />
           </div>
         </div>
-      </div>     
+      </div>
 
       <div>
         <Container fluid>
@@ -97,14 +96,13 @@ const Home = () => {
                 />
                 <h4>Create an account</h4>
                 <p>Initially, you have to create an account to get started.</p>
-                {!token&&
+                {!token && (
                   <Link to="/log-in">
-                  <button className=" px-4 py-2 rounded-md  text-blue-500 hover:text-blue-900 transition duration-300 ease-in-out">
-                    Sign Up
-                  </button>
-                </Link>
-                }
-                
+                    <button className=" px-4 py-2 rounded-md  text-blue-500 hover:text-blue-900 transition duration-300 ease-in-out">
+                      Sign Up
+                    </button>
+                  </Link>
+                )}
               </div>
               <div className="info">
                 <img
@@ -154,6 +152,7 @@ const Home = () => {
             <span className="symbol">/&#62;</span>
           </h4>
         </div>
+      </div>
       </div>
     </>
   );
