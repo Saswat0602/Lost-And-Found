@@ -12,7 +12,7 @@ import notification from "../img/notification.svg";
 import github from "../img/github.svg";
 import linkedin from "../img/linkedin.svg";
 import mail from "../img/mail.svg";
-import lostfound from "../assets/bgimage.jpg";
+import lostfound from "../assets/bgim.jpg";
 
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
