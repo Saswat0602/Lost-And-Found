@@ -54,35 +54,40 @@
 
 .item-card p {
   margin-bottom: 0;
-}.loader-skeleton {
+
+}
+.loader-skeleton {
   margin-top: 50px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  opacity: 1; /* Start with opacity 1 */
+  transition: opacity 1.5s ease-in-out; /* Smooth transition */
 }
 
 .loader-skeleton-item {
-  width: calc(22%); 
+  width: calc(22%);
   height: 200px;
   margin: 10px;
   background-color: #f0f0f0;
   border-radius: 5px;
+  animation: wave-animation 1.5s infinite; /* Apply animation to all items */
 }
 
 .loader-skeleton-item:nth-child(1) {
-  animation: wave-animation 1.5s infinite;
+  animation-delay: 0s; /* Start animation immediately */
 }
 
 .loader-skeleton-item:nth-child(2) {
-  animation: wave-animation 1.5s infinite 0.3s;
+  animation-delay: 0.3s; /* Delay animation */
 }
 
 .loader-skeleton-item:nth-child(3) {
-  animation: wave-animation 1.5s infinite 0.6s;
+  animation-delay: 0.6s; /* Delay animation */
 }
 
 .loader-skeleton-item:nth-child(4) {
-  animation: wave-animation 1.5s infinite 0.9s;
+  animation-delay: 0.9s; /* Delay animation */
 }
 
 @keyframes wave-animation {
@@ -95,6 +100,11 @@
   100% {
     transform: translateY(0);
   }
+}
+
+/* Hide skeleton when data is loaded */
+.loader-skeleton.hidden {
+  opacity: 0;
 }
 
 
