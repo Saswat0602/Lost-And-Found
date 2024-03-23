@@ -37,9 +37,8 @@ function AddItemModal() {
     setType(e.target.value);
   };
 
-
   useEffect(() => {
-    if(showPostModal){
+    if (showPostModal) {
       getAuthdata();
     }
   }, [showPostModal]);
@@ -66,12 +65,11 @@ function AddItemModal() {
 
   const handleCancel = () => {
     setShowPostModal(false);
-    setName("")
-    setDescription("")
-    setQuestion("")
-    setType("")
+    setName("");
+    setDescription("");
+    setQuestion("");
+    setType("");
   };
-
 
   const handleAddItem = async (e) => {
     e.preventDefault();
@@ -137,7 +135,7 @@ function AddItemModal() {
           progress: undefined,
           theme: "colored",
         });
-        handleCancel()
+        handleCancel();
       } else {
         toast.success("Item Posted successfully", {
           position: "top-right",
@@ -149,7 +147,7 @@ function AddItemModal() {
           progress: undefined,
           theme: "colored",
         });
-        handleCancel()
+        handleCancel();
       }
     } catch (error) {
       toast.error("An error occurred while adding the Item", {
@@ -162,8 +160,7 @@ function AddItemModal() {
         progress: undefined,
         theme: "colored",
       });
-      handleCancel()
-
+      handleCancel();
     }
   };
 

@@ -9,7 +9,6 @@ import Response from "./Components/Response";
 import "bootstrap/dist/css/bootstrap.min.css";
 // import PrivateRoute from "./Components/privateroute";
 import Home from "./Components/Home";
-// import ItemPage from "./Components/ItemPage";
 import MyListings from "./Components/MyListings";
 import Feed from "./Components/Feed";
 import { StateProvider } from "./Context/ProjectCotext";

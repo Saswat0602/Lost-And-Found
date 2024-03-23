@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState } from "react";
 
 const StateContext = createContext();
@@ -7,14 +6,15 @@ export const ProjectCotext = () => useContext(StateContext);
 
 export const StateProvider = ({ children }) => {
   const [showPostModal, setShowPostModal] = useState(false);
-console.log(showPostModal,"showPostModal")
+  const [showResponseModal, setResponseModal] = useState(false);
 
   return (
     <StateContext.Provider
       value={{
         showPostModal,
         setShowPostModal,
-
+        showResponseModal,
+        setResponseModal,
       }}
     >
       {children}

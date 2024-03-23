@@ -3,15 +3,19 @@ import { useParams, useNavigate } from "react-router-dom";
 // import Update from "./Update";
 import { toast } from "react-toastify";
 import lostfound from "../assets/bgimage.jpg";
-import ConfirmationModal from "../widgets/ConfirmationModal"
+import ConfirmationModal from "../widgets/ConfirmationModal";
+import { ProjectCotext } from "../Context/ProjectCotext";
+import ResponseModal from "../widgets/ResponseModal";
 const ItemDetails = () => {
   const { itemID } = useParams();
   console.log(itemID, "itemID");
   const [property, setProperty] = useState(null);
   const [showUpdate, setShowUpdate] = useState(false);
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+  const { showResponseModal, setResponseModal } = ProjectCotext();
 
-  const id = localStorage.getItem("user");
+  const [message, setMessage] = useState("")
+  const id = localStorage.getItem("user"); 
   const navigate = useNavigate();
   console.log("Property ID:", itemID);
 
@@ -135,7 +139,6 @@ const ItemDetails = () => {
     return `${day}${suffix} ${month} ${year}`;
   }
 
-
   if (!property) {
     return <div>Loading...</div>;
   }
@@ -166,7 +169,9 @@ const ItemDetails = () => {
 
             <h2>
               <span className="font-mono text-blue-300">Created At:</span>
-              <span className="text-2xl">{formatDate(property?.createdAt)}</span>
+              <span className="text-2xl">
+                {formatDate(property?.createdAt)}
+              </span>
             </h2>
 
             {JSON.parse(id) === property.author ? (
@@ -184,17 +189,23 @@ const ItemDetails = () => {
                   Delete Property
                 </button>
               </div>
-            ):(
+            ) : (
               <div>
-                <button className="bg-blue-500 px-2  py-2">Found Item</button>
+                <button
+                  className="bg-blue-500 px-2  py-2 rounded-md hover:bg-slate-400 transition ease-in-out duration-0.3"
+                  onClick={() => {
+                    setResponseModal(!showResponseModal);
+                  }}
+                >
+                  Found Item
+                </button>
               </div>
-            
             )}
           </div>
         </div>
         <button
           onClick={() => navigate("/mylistings")}
-          className="bg-blue-300 p-2 md:p-4 border rounded-md ml-5 mb-3 block ml-12"
+          className="bg-blue-300 p-2 md:p-4 border rounded-md  mb-3 block ml-12"
         >
           Back to Listing item List
         </button>
@@ -204,12 +215,13 @@ const ItemDetails = () => {
         closeUpdate={() => setShowUpdate(false)}
       />
     )} */}
-    <ConfirmationModal
-        isOpen={isConfirmationOpen}
-        message="Are you sure you want to delete this item?"
-        onCancel={handleConfirmationCancel}
-        onConfirm={handleConfirmationConfirm}
-      />
+        <ResponseModal  Question ={property?.question}/>
+        <ConfirmationModal
+          isOpen={isConfirmationOpen}
+          message="Are you sure you want to delete this item?"
+          onCancel={handleConfirmationCancel}
+          onConfirm={handleConfirmationConfirm}
+        />
       </div>
     </>
   );
