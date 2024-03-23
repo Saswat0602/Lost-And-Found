@@ -7,15 +7,44 @@ import axios from "axios";
 import { ProjectCotext } from "../Context/ProjectCotext";
 Modal.setAppElement("#root");
 
-const ResponseModal = (Question) => {
+const ResponseModal = (Question,name,itemId,itemName) => {
   const { showResponseModal, setResponseModal } = ProjectCotext();
+  const token = localStorage.getItem("token");
   const [answer, setAnswer] = useState("")
   const handleAnswer = (e) => {
     setAnswer(e.target.value);
   };
-  const handleSubmit=()=>{
+  
 
-  }
+
+
+  console.log(Question,itemName,name,itemId)
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/postresponses",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          itemId: itemId,
+          answer: answer,
+          name: name,
+          question: Question.Question,
+          itemName:itemName
+        }
+      );
+      console.log("Response created:", response.data);
+      toast.success("Response submitted successfully");
+      setResponseModal(false);
+    } catch (error) {
+      console.error("Error creating response:", error);
+      setResponseModal(false);
+      toast.error("Failed to submit response");
+    }
+  };
   return (
     <div>
       <Modal

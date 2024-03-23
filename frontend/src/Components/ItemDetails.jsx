@@ -14,7 +14,7 @@ const ItemDetails = () => {
   const [showUpdate, setShowUpdate] = useState(false);
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const { showResponseModal, setResponseModal } = ProjectCotext();
-
+const userName = localStorage.getItem("name")
   const [message, setMessage] = useState("");
   const [responseData, setResponseData] = useState([]);
   const id = localStorage.getItem("user");
@@ -157,7 +157,9 @@ const ItemDetails = () => {
         <h6 className="mt-3 text-right">
           Subbmitted by : <span>Name</span>
         </h6>
-        <p>Submitted At: <span>date</span> </p>
+        <p>
+          Submitted At: <span>date</span>{" "}
+        </p>
       </div>
     ));
   };
@@ -186,12 +188,9 @@ const ItemDetails = () => {
               <span className="text-2xl">{property.description}</span>
             </h2>
 
-
             <h2>
               <span className="font-mono text-blue-300">Item Type:</span>
-              <span className="text-2xl">
-                {property?.type}
-              </span>
+              <span className="text-2xl">{property?.type}</span>
             </h2>
             <h2>
               <span className="font-mono text-blue-300">Created At:</span>
@@ -254,7 +253,12 @@ const ItemDetails = () => {
         closeUpdate={() => setShowUpdate(false)}
       />
     )} */}
-        <ResponseModal Question={property?.question} />
+        <ResponseModal
+          Question={property?.question}
+          itemId={property?._id}
+          itemName={property?.name}
+          name={JSON.parse(userName)}
+        />
         <ConfirmationModal
           isOpen={isConfirmationOpen}
           message="Are you sure you want to delete this item?"
