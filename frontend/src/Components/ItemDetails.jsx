@@ -6,6 +6,8 @@ import lostfound from "../assets/bgimage.jpg";
 import ConfirmationModal from "../widgets/ConfirmationModal";
 import { ProjectCotext } from "../Context/ProjectCotext";
 import ResponseModal from "../widgets/ResponseModal";
+import "../css/feed.css";
+
 const ItemDetails = () => {
   const { itemID } = useParams();
   console.log(itemID, "itemID");
@@ -14,8 +16,9 @@ const ItemDetails = () => {
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const { showResponseModal, setResponseModal } = ProjectCotext();
 
-  const [message, setMessage] = useState("")
-  const id = localStorage.getItem("user"); 
+  const [message, setMessage] = useState("");
+  const [responseData, setResponseData] = useState([]);
+  const id = localStorage.getItem("user");
   const navigate = useNavigate();
   console.log("Property ID:", itemID);
 
@@ -142,6 +145,24 @@ const ItemDetails = () => {
   if (!property) {
     return <div>Loading...</div>;
   }
+  // Function to render lost items in rows of four
+  const renderResponse = () => {
+    return responseData.map((item, index) => (
+      <div className="max-w-[300px] bg-slate-200 p-3 rounded-md">
+        <h4 className="text-start">
+          Answer: <span>Answer here</span>
+        </h4>
+        <div className="flex justify-start">
+          <h5 className="text- ">validate :</h5>
+          <button className="px-2 py2 rounded-md bg-blue-300 ml-4">Yes</button>
+          <button className="px-2 py2 rounded-md bg-red-300 ml-4">No</button>
+        </div>
+        <h6 className="mt-3 text-right">
+          Subbmitted by : <span>Name</span>
+        </h6>
+      </div>
+    ));
+  };
   return (
     <>
       <div className="p-2">
@@ -209,13 +230,26 @@ const ItemDetails = () => {
         >
           Back to Listing item List
         </button>
+
+        <div className="w-full pb-10 min-h-[300px]">
+          <h3 className="text-center">Response Answers</h3>
+          <h4 className="text-start">
+            Question : <span>{property?.question}</span>
+          </h4>
+        </div>
+        {responseData?.length === 0 ? (
+          <h4>No Response Yet</h4>
+        ) : (
+          <div className="item-container">{renderResponse()}</div>
+        )}
+
         {/* {showUpdate && (
       <Update
         itemID={itemID}
         closeUpdate={() => setShowUpdate(false)}
       />
     )} */}
-        <ResponseModal  Question ={property?.question}/>
+        <ResponseModal Question={property?.question} />
         <ConfirmationModal
           isOpen={isConfirmationOpen}
           message="Are you sure you want to delete this item?"
