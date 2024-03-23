@@ -13,8 +13,8 @@ export default function Feed() {
   });
 
   const [lostItems, setLostItems] = useState([]);
+  const [foundItems, setFoundItems] = useState([]);
   const [Loading, setLoading] = useState(true);
-
   setConstraint(true);
 
   useEffect(() => {
@@ -24,7 +24,18 @@ export default function Feed() {
     })
       .then((response) => {
         let data = response.data;
-        setLostItems(data);
+
+        // Filter items based on type
+        const foundItems = data.filter(
+          (item) => item.type === "found" || item.type === "Found"
+        );
+        const lostItems = data.filter(
+          (item) => item.type !== "found" && item.type !== "Found"
+        );
+
+        // Set filtered items to state variables
+        setFoundItems(foundItems);
+        setLostItems(lostItems);
         setLoading(false);
       })
       .catch((err) => {
@@ -66,8 +77,8 @@ export default function Feed() {
   }
 
   // Function to render lost items in rows of four
-  const renderLostItems = () => {
-    return lostItems.map((item, index) => (
+  const renderLostItems = (data) => {
+    return data.map((item, index) => (
       <Link
         to={`/feed/item/${item?._id}`}
         key={index}
@@ -77,7 +88,7 @@ export default function Feed() {
         <h4 className="text-start"> Name of item :{item?.name}</h4>
         <p className="text-start">Question: {item?.question}</p>
         <p className="text-start">Item Descriptions:{item?.description}</p>
-        <p>Created At: {formatDate(item?.createdAt)}</p>
+        <p className="text-start">Created At: {formatDate(item?.createdAt)}</p>
       </Link>
     ));
   };
@@ -103,14 +114,21 @@ export default function Feed() {
           <div>
             <h2 style={{ textAlign: "center" }}>Lost items :</h2>
             <div className="title-border"></div>
-            <div className="item-container">{renderLostItems()}</div>
+            <div className="item-container">{renderLostItems(lostItems)}</div>
           </div>
           <div className=" h-40 max-h-screen">
             <h2 style={{ textAlign: "center" }}>Found items :</h2>
             <div className="title-border"></div>
-            <div className="flex justify-center font-serif mt-10">
-              No Found Items Till Now{" "}
-            </div>
+
+            {foundItems.length === 0 ? (
+              <div className="flex justify-center font-serif mt-10">
+                Nothing Here{" "}
+              </div>
+            ) : (
+              <div className="item-container">
+                {renderLostItems(foundItems)}
+              </div>
+            )}
           </div>
         </div>
       )}

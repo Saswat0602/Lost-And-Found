@@ -10,7 +10,6 @@ import "../css/feed.css";
 
 const ItemDetails = () => {
   const { itemID } = useParams();
-  console.log(itemID, "itemID");
   const [property, setProperty] = useState(null);
   const [showUpdate, setShowUpdate] = useState(false);
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
@@ -20,14 +19,11 @@ const ItemDetails = () => {
   const [responseData, setResponseData] = useState([]);
   const id = localStorage.getItem("user");
   const navigate = useNavigate();
-  console.log("Property ID:", itemID);
 
   useEffect(() => {
-    console.log("Fetching property details...");
     fetch(`http://localhost:5000/api/getItemById/${itemID}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log("Fetched property data:", data);
         setProperty(data);
       })
       .catch((error) => console.error("Error fetching property:", error));
@@ -190,6 +186,13 @@ const ItemDetails = () => {
               <span className="text-2xl">{property.description}</span>
             </h2>
 
+
+            <h2>
+              <span className="font-mono text-blue-300">Item Type:</span>
+              <span className="text-2xl">
+                {property?.type}
+              </span>
+            </h2>
             <h2>
               <span className="font-mono text-blue-300">Created At:</span>
               <span className="text-2xl">

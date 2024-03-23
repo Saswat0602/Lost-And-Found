@@ -194,13 +194,16 @@ function AddItemModal() {
             <label htmlFor="type" className="ml-2">
               Item Type
             </label>
-            <input
-              type="text"
+            <select
               className="p-1 border rounded-lg"
               name="type"
-              placeholder="Enter your type of the Item "
               onChange={handleTypeChange}
-            />
+            >
+              <option value="">Select Type</option>
+              <option value="found">Found</option>
+              <option value="lost">Lost</option>
+            </select>
+
             <label htmlFor="picture" className="ml-2 ">
               Upload Picture
             </label>
