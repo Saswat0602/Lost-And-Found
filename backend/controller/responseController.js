@@ -3,9 +3,9 @@ import Response from "../model/response.js";
 
 const createResponse = async (req, res) => {
   try {
-    const { itemId, answer, name ,question } = req.body;
+    const { itemId, answer, name ,question,itemName } = req.body;
 
-    if (!itemId || !answer || !name) {
+    if (!itemId || !answer || !name || !itemName) {
       return res.status(403).json({
         error: "Please fill up all fields",
       });
@@ -19,7 +19,8 @@ const createResponse = async (req, res) => {
       item: itemId,
       answer,
       name,
-      question
+      question,
+      itemName
     });
 
     const savedResponse = await newResponse.save();

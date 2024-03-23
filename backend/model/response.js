@@ -21,6 +21,10 @@ const responseSchema = new Schema({
     type: String,
     required: true,
   },
+  itemName: {
+    type: String,
+    required: true,
+  },
   answer: {
     type: String,
     required: true,

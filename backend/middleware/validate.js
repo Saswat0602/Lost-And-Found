@@ -9,7 +9,6 @@ const validate = async (req, res, next) => {
 
     const correctUser = await User.findById({ _id: verifyToken._id });
 
-    console.log(correctUser);
 
     if (!verifyToken && !correctUser) {
       throw new Error("user not found");
