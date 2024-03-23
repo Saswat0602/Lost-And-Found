@@ -149,17 +149,19 @@ const ItemDetails = () => {
   const renderResponse = () => {
     return responseData.map((item, index) => (
       <div className="max-w-[300px] bg-slate-200 p-3 rounded-md">
-        <h4 className="text-start">
-          Answer: <span>Answer here</span>
+        <h4 className="text-start text-gray-300">
+          Answer: <span>Answer Subbmitted</span>
         </h4>
         <div className="flex justify-start">
           <h5 className="text- ">validate :</h5>
           <button className="px-2 py2 rounded-md bg-blue-300 ml-4">Yes</button>
           <button className="px-2 py2 rounded-md bg-red-300 ml-4">No</button>
         </div>
+
         <h6 className="mt-3 text-right">
           Subbmitted by : <span>Name</span>
         </h6>
+        <p>Submitted At: <span>date</span> </p>
       </div>
     ));
   };
