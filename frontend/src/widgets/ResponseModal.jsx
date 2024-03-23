@@ -7,33 +7,34 @@ import axios from "axios";
 import { ProjectCotext } from "../Context/ProjectCotext";
 Modal.setAppElement("#root");
 
-const ResponseModal = (Question,name,itemId,itemName) => {
+const ResponseModal = (itemData) => {
   const { showResponseModal, setResponseModal } = ProjectCotext();
   const token = localStorage.getItem("token");
   const [answer, setAnswer] = useState("")
   const handleAnswer = (e) => {
     setAnswer(e.target.value);
   };
-  
+  const userName = localStorage.getItem("name");
+
+  console.log(itemData?.itemDetais?.name,"Question,name,itemId,itemName")
 
 
 
-  console.log(Question,itemName,name,itemId)
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
         "http://localhost:5000/api/postresponses",
         {
+          itemId: itemData?.itemDetais._id,
+          answer: answer,
+          name: JSON.parse(userName),
+          question: itemData?.itemDetais?.question,
+          itemName: itemData?.itemDetais?.name
+        },
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
-        {
-          itemId: itemId,
-          answer: answer,
-          name: name,
-          question: Question.Question,
-          itemName:itemName
         }
       );
       console.log("Response created:", response.data);
@@ -45,6 +46,7 @@ const ResponseModal = (Question,name,itemId,itemName) => {
       toast.error("Failed to submit response");
     }
   };
+  
   return (
     <div>
       <Modal
@@ -78,7 +80,7 @@ const ResponseModal = (Question,name,itemId,itemName) => {
         }}
       >
         <div className="modal-content">
-          <h4 className="text-center">Q.{Question.Question}</h4>
+          <h4 className="text-center">Q.{itemData?.itemDetais?.question}</h4>
           <input
             type="text"
             className="p-1 border rounded-lg w-[280px] ml-10 mt-4"

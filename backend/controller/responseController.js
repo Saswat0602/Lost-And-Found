@@ -4,7 +4,7 @@ import Response from "../model/response.js";
 const createResponse = async (req, res) => {
   try {
     const { itemId, answer, name ,question,itemName } = req.body;
-
+console.log(req.body,"req.body============")
     if (!itemId || !answer || !name || !itemName) {
       return res.status(403).json({
         error: "Please fill up all fields",

@@ -14,12 +14,10 @@ const ItemDetails = () => {
   const [showUpdate, setShowUpdate] = useState(false);
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const { showResponseModal, setResponseModal } = ProjectCotext();
-  const userName = localStorage.getItem("name");
   const [message, setMessage] = useState("");
   const [responseData, setResponseData] = useState([]);
   const id = localStorage.getItem("user");
   const navigate = useNavigate();
-  console.log(pageName, "pageName");
   useEffect(() => {
     fetch(`http://localhost:5000/api/getItemById/${itemID}`)
       .then((response) => response.json())
@@ -137,7 +135,7 @@ const ItemDetails = () => {
 
     return `${day}${suffix} ${month} ${year}`;
   }
-
+console.log(property?._id)
   if (!property) {
     return <div>Loading...</div>;
   }
@@ -258,10 +256,7 @@ const ItemDetails = () => {
       />
     )} */}
         <ResponseModal
-          Question={property?.question}
-          itemId={property?._id}
-          itemName={property?.name}
-          name={JSON.parse(userName)}
+        itemDetais={property}
         />
         <ConfirmationModal
           isOpen={isConfirmationOpen}

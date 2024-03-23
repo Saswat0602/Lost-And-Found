@@ -56,30 +56,30 @@ function Response() {
 
   const renderResponse = () => {
     return response.map((item, index) => (
-      <div className="w-[400px] bg-slate-100 min-h-[200px] rounded-md p-2 border border-black shadow-md">
+      <div className="w-[400px] bg-slate-100 min-h-[200px] rounded-md p-2 border border-black shadow-md ">
         <p>
-          Item Name :<span>{response[0]?.itemName ?? response[0]?._id}</span>
+          Item Name :<span>{item.itemName ?? item?._id}</span>
         </p>
         <p>
-          Questions : <span>{response[0]?.question}</span>
+          Questions : <span>{item.question}</span>
         </p>
         <p>
-          Your Answer : <span>{response[0]?.answer}</span>
+          Your Answer : <span>{item?.answer}</span>
         </p>
         <p>
-          Submitted At : <span>{formatDate(response[0]?.createdAt)}</span>
+          Submitted At : <span>{formatDate(item?.createdAt)}</span>
         </p>
         <p>
           Status:{" "}
           <span
             className={`bg-${
-              response[0]?.confirmation ? "green" : "blue"
+              item.confirmation ? "green" : "blue"
             }-400 px-2 rounded-3xl py-1`}
           >
-            {response[0]?.confirmation ? "Response" : "Moderation"}
+            {item.confirmation ? "Response" : "Moderation"}
           </span>
         </p>
-        {response[0]?.confirmation && (
+        {item.confirmation && (
           <button className="text-blue-500">Click to get Contact Num...</button>
         )}
       </div>
@@ -91,7 +91,7 @@ function Response() {
       <Navbar />
       <div>
         <h2 className="text-center underline">Your Response</h2>
-        <div className="flex flex-wrap justify-start px-4  mt-4">
+        <div className="flex flex-wrap justify-start px-4 gap-4 mt-4">
           {renderResponse()}
         </div>
       </div>
