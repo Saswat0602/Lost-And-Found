@@ -7,27 +7,45 @@ import ConfirmationModal from "../widgets/ConfirmationModal";
 import { ProjectCotext } from "../Context/ProjectCotext";
 import ResponseModal from "../widgets/ResponseModal";
 import "../css/feed.css";
+import axios from "axios";
+import Spinner from "../widgets/Spinner";
 
 const ItemDetails = () => {
   const { itemID, pageName } = useParams();
-  const [property, setProperty] = useState(null);
+  const [ItemDatas, setItemData] = useState(null);
   const [showUpdate, setShowUpdate] = useState(false);
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { showResponseModal, setResponseModal } = ProjectCotext();
   const [message, setMessage] = useState("");
   const [responseData, setResponseData] = useState([]);
   const id = localStorage.getItem("user");
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
   useEffect(() => {
-    fetch(`http://localhost:5000/api/getItemById/${itemID}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setProperty(data);
-      })
-      .catch((error) => console.error("Error fetching property:", error));
-  }, [itemID]);
+    const fetchData = async () => {
+      try {
+        const itemResponse = await axios.get(`http://localhost:5000/api/getItemById/${itemID}`);
+        setItemData(itemResponse.data);
+        
+        const responseResponse = await axios.get(`http://localhost:5000/api/item/${itemID}/responses`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        setResponseData(responseResponse.data);
+        setIsLoading(false)
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setItemData([]);
+        setResponseData([]);
+        setIsLoading(false)
+      }
+    };
+    fetchData();
+  }, [itemID, token]);
 
-  const handleEditProperty = () => {
+  const handleEditItemDatas = () => {
     setShowUpdate(true);
   };
 
@@ -51,7 +69,7 @@ const ItemDetails = () => {
       );
 
       if (response.status === 200) {
-        toast.success("Property deleted successfully", {
+        toast.success("ItemDatas deleted successfully", {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -64,7 +82,7 @@ const ItemDetails = () => {
 
         navigate("/mylistings");
       } else if (response.status === 404) {
-        toast.error("Property not found", {
+        toast.error("ItemDatas not found", {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -76,8 +94,8 @@ const ItemDetails = () => {
         });
       }
     } catch (error) {
-      console.error("An error occurred while deleting the property:", error);
-      toast.error("An error occurred while deleting the property", {
+      console.error("An error occurred while deleting the ItemDatas:", error);
+      toast.error("An error occurred while deleting the ItemDatas", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -135,16 +153,19 @@ const ItemDetails = () => {
 
     return `${day}${suffix} ${month} ${year}`;
   }
-console.log(property?._id)
-  if (!property) {
-    return <div>Loading...</div>;
-  }
+  if (!ItemDatas) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Spinner />
+      </div>
+    );
+      }
   // Function to render lost items in rows of four
   const renderResponse = () => {
     return responseData.map((item, index) => (
       <div className="max-w-[300px] bg-slate-200 p-3 rounded-md">
         <h4 className="text-start text-gray-300">
-          Answer: <span>Answer Subbmitted</span>
+          Answer: <span>{item?.answer ?? ""}</span>
         </h4>
         <div className="flex justify-start">
           <h5 className="text- ">validate :</h5>
@@ -153,10 +174,10 @@ console.log(property?._id)
         </div>
 
         <h6 className="mt-3 text-right">
-          Subbmitted by : <span>Name</span>
+          Subbmitted by : <span>{item?.name}</span>
         </h6>
         <p>
-          Submitted At: <span>date</span>{" "}
+          Submitted At: <span>{formatDate(item?.createdAt)}</span>
         </p>
       </div>
     ));
@@ -165,51 +186,51 @@ console.log(property?._id)
     <>
       <div className="p-2">
         <h1 className="ml-12 font-light text-2xl text-green-600 items-center">
-          {property?.name?.toUpperCase()}
+          {ItemDatas?.name?.toUpperCase()}
         </h1>
         <div className="flex flex-col md:flex-row m-5">
           <div className="w-full md:w-1/2 pr-6 mb-4 md:mb-0">
             <img
-              // src={property.thumbnailUrl[0] ?? lostfound}
+              // src={ItemDatas.thumbnailUrl[0] ?? lostfound}
               src={lostfound}
-              alt={property.name}
+              alt={ItemDatas.name}
               className="w-full border rounded-lg"
             />
           </div>
           <div className="w-full md:w-1/2">
             <h2>
               <span className="font-mono text-blue-300">Item Name:</span>
-              <span className="text-2xl">{property.type}</span>
+              <span className="text-2xl">{ItemDatas.type}</span>
             </h2>
             <h2>
               <span className="font-mono text-blue-300">About This Item:</span>
-              <span className="text-2xl">{property.description}</span>
+              <span className="text-2xl">{ItemDatas.description}</span>
             </h2>
 
             <h2>
               <span className="font-mono text-blue-300">Item Type:</span>
-              <span className="text-2xl">{property?.type}</span>
+              <span className="text-2xl">{ItemDatas?.type}</span>
             </h2>
             <h2>
               <span className="font-mono text-blue-300">Created At:</span>
               <span className="text-2xl">
-                {formatDate(property?.createdAt)}
+                {formatDate(ItemDatas?.createdAt)}
               </span>
             </h2>
 
-            {JSON.parse(id) === property.author ? (
+            {JSON.parse(id) === ItemDatas.author ? (
               <div className="flex justify-center mt-4">
                 <button
-                  onClick={handleEditProperty}
+                  onClick={handleEditItemDatas}
                   className="bg-blue-500 p-2 md:p-4 border rounded-md mx-2"
                 >
-                  Edit Property
+                  Edit ItemDatas
                 </button>
                 <button
                   onClick={handleDeleteItemAlert}
                   className="bg-red-500 p-2 md:p-4 border rounded-md mx-2"
                 >
-                  Delete Property
+                  Delete ItemDatas
                 </button>
               </div>
             ) : (
@@ -237,7 +258,7 @@ console.log(property?._id)
           <div className="w-full pb-10 min-h-[300px]">
             <h3 className="text-center">Response Answers</h3>
             <h4 className="text-start">
-              Question: <span>{property?.question}</span>
+              Question: <span>{ItemDatas?.question}</span>
             </h4>
           </div>
         )}
@@ -255,9 +276,7 @@ console.log(property?._id)
         closeUpdate={() => setShowUpdate(false)}
       />
     )} */}
-        <ResponseModal
-        itemDetais={property}
-        />
+        <ResponseModal itemDetais={ItemDatas} />
         <ConfirmationModal
           isOpen={isConfirmationOpen}
           message="Are you sure you want to delete this item?"

@@ -3,8 +3,8 @@ import Response from "../model/response.js";
 
 const createResponse = async (req, res) => {
   try {
-    const { itemId, answer, name ,question,itemName } = req.body;
-console.log(req.body,"req.body============")
+    const { itemId, answer, name, question, itemName } = req.body;
+    console.log(req.body, "req.body============");
     if (!itemId || !answer || !name || !itemName) {
       return res.status(403).json({
         error: "Please fill up all fields",
@@ -20,7 +20,7 @@ console.log(req.body,"req.body============")
       answer,
       name,
       question,
-      itemName
+      itemName,
     });
 
     const savedResponse = await newResponse.save();
@@ -38,7 +38,7 @@ const getResponsesForAuthor = async (req, res) => {
       return res.status(403).json({ error: "User not authenticated" });
     }
 
-    const authorId = req.user._id; 
+    const authorId = req.user._id;
 
     const responses = await Response.find({ author: authorId });
 
@@ -49,27 +49,41 @@ const getResponsesForAuthor = async (req, res) => {
   }
 };
 
-const acceptResponse=async (req, res) => {
-    try {
-      const { responseId } = req.params;
-      const { responseBack } = req.body;
-  
-      // Find the response by ID and update responseBack field
-      const response = await Response.findByIdAndUpdate(
-        responseId,
-        { responseBack: responseBack },
-        { new: true } // Return the updated response
-      );
-  
-      if (!response) {
-        return res.status(404).json({ error: 'Response not found' });
-      }
-  
-      res.json(response);
-    } catch (error) {
-      console.error('Error updating responseBack field:', error);
-      res.status(500).json({ error: 'Could not update responseBack field' });
-    }
-  }
+const acceptResponse = async (req, res) => {
+  try {
+    const { responseId } = req.params;
+    const { responseBack } = req.body;
 
-  export { createResponse, acceptResponse,getResponsesForAuthor };
+    // Find the response by ID and update responseBack field
+    const response = await Response.findByIdAndUpdate(
+      responseId,
+      { responseBack: responseBack },
+      { new: true } // Return the updated response
+    );
+
+    if (!response) {
+      return res.status(404).json({ error: "Response not found" });
+    }
+
+    res.json(response);
+  } catch (error) {
+    console.error("Error updating responseBack field:", error);
+    res.status(500).json({ error: "Could not update responseBack field" });
+  }
+};
+
+const getResponsesForItem = async (req, res) => {
+  try {
+    const { itemId } = req.params;
+
+    const responses = await Response.find({ item: itemId });
+
+    res.status(200).json(responses);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+
+export { createResponse, acceptResponse, getResponsesForAuthor ,getResponsesForItem };

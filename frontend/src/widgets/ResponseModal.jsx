@@ -16,7 +16,6 @@ const ResponseModal = (itemData) => {
   };
   const userName = localStorage.getItem("name");
 
-  console.log(itemData?.itemDetais?.name,"Question,name,itemId,itemName")
 
 
 
