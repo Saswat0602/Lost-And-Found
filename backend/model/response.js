@@ -21,6 +21,10 @@ const responseSchema = new Schema({
     type: String,
     required: true,
   },
+  responseBack: {
+    type: String,
+    required: true,
+  },
   confirmation: {
     type: Boolean,
     default: false,
