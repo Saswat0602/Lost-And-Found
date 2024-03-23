@@ -25,21 +25,26 @@ const ItemDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const itemResponse = await axios.get(`http://localhost:5000/api/getItemById/${itemID}`);
+        const itemResponse = await axios.get(
+          `http://localhost:5000/api/getItemById/${itemID}`
+        );
         setItemData(itemResponse.data);
-        
-        const responseResponse = await axios.get(`http://localhost:5000/api/item/${itemID}/responses`, {
-          headers: {
-            Authorization: `Bearer ${token}`
+
+        const responseResponse = await axios.get(
+          `http://localhost:5000/api/item/${itemID}/responses`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
-        });
+        );
         setResponseData(responseResponse.data);
-        setIsLoading(false)
+        setIsLoading(false);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
         setItemData([]);
         setResponseData([]);
-        setIsLoading(false)
+        setIsLoading(false);
       }
     };
     fetchData();
@@ -159,22 +164,53 @@ const ItemDetails = () => {
         <Spinner />
       </div>
     );
-      }
-  // Function to render lost items in rows of four
+  }
+  const handleResponseBack = async (value, id) => {
+    try {
+      const response = await axios.put(`http://localhost:5000/api/responses/${id}/responseBack`, {
+        responseBack: value ? 'yes' : 'no',
+        responseId: id
+      });
+  
+      console.log('Response successfully updated:', response.data);
+      toast.success("Response successfully updated", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } catch (error) {
+      console.error('Error updating response:', error);
+      toast.error(error, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+  };
   const renderResponse = () => {
     return responseData.map((item, index) => (
-      <div className="max-w-[300px] bg-slate-200 p-3 rounded-md">
-        <h4 className="text-start text-gray-300">
+      <div key={index} className="max-w-[300px] bg-slate-200 p-3 rounded-md">
+        <h4 className="text-start">
           Answer: <span>{item?.answer ?? ""}</span>
         </h4>
         <div className="flex justify-start">
-          <h5 className="text- ">validate :</h5>
-          <button className="px-2 py2 rounded-md bg-blue-300 ml-4">Yes</button>
-          <button className="px-2 py2 rounded-md bg-red-300 ml-4">No</button>
+          <h5 className="">validate :</h5>
+          <button className="px-2 py-1 rounded-md bg-blue-400 hover:bg-blue-300 ml-4" onClick={() => handleResponseBack(true, item?._id)}>Yes</button>
+          <button className="px-2 py-1 rounded-md bg-red-400 hover:bg-red-300 ml-4" onClick={() => handleResponseBack(false, item?._id)}>No</button>
         </div>
-
+  
         <h6 className="mt-3 text-right">
-          Subbmitted by : <span>{item?.name}</span>
+          Submitted by : <span>{item?.name}</span>
         </h6>
         <p>
           Submitted At: <span>{formatDate(item?.createdAt)}</span>
@@ -182,6 +218,7 @@ const ItemDetails = () => {
       </div>
     ));
   };
+  
   return (
     <>
       <div className="p-2">
@@ -254,21 +291,25 @@ const ItemDetails = () => {
           Back to Listing item List
         </button>
 
-        {pageName !== "feed" && (
-          <div className="w-full pb-10 min-h-[300px]">
-            <h3 className="text-center">Response Answers</h3>
-            <h4 className="text-start">
-              Question: <span>{ItemDatas?.question}</span>
-            </h4>
-          </div>
-        )}
-        {pageName !== "feed" ? (
-          responseData?.length === 0 ? (
-            <h4>No Response Yet</h4>
-          ) : (
-            <div className="item-container">{renderResponse()}</div>
-          )
-        ) : null}
+        <div className="w-full pb-10  min-h-[300px]">
+          {pageName !== "feed" && (
+            <div className="w-full pb-2 ">
+              <h3 className="text-center">Response Answers</h3>
+              <h4 className="text-start">
+                Question: <span>{ItemDatas?.question}</span>
+              </h4>
+            </div>
+          )}
+          {pageName !== "feed" ? (
+            responseData?.length === 0 ? (
+              <h4>No Response Yet</h4>
+            ) : (
+              <div className="item-container">
+                {renderResponse()}
+              </div>
+            )
+          ) : null}
+        </div>
 
         {/* {showUpdate && (
       <Update

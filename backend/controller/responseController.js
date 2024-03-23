@@ -51,14 +51,12 @@ const getResponsesForAuthor = async (req, res) => {
 
 const acceptResponse = async (req, res) => {
   try {
-    const { responseId } = req.params;
-    const { responseBack } = req.body;
+    const { responseBack, responseId } = req.body;
 
-    // Find the response by ID and update responseBack field
     const response = await Response.findByIdAndUpdate(
       responseId,
-      { responseBack: responseBack },
-      { new: true } // Return the updated response
+      { responseBack: responseBack, confirmation: true },
+      { new: true }
     );
 
     if (!response) {
@@ -67,8 +65,8 @@ const acceptResponse = async (req, res) => {
 
     res.json(response);
   } catch (error) {
-    console.error("Error updating responseBack field:", error);
-    res.status(500).json({ error: "Could not update responseBack field" });
+    console.error("Error updating responseBack and confirmation fields:", error);
+    res.status(500).json({ error: "Could not update responseBack and confirmation fields" });
   }
 };
 
