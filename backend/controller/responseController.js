@@ -3,15 +3,26 @@ import Response from "../model/response.js";
 
 const createResponse = async (req, res) => {
   try {
-    const { authorId, itemId, answer } = req.body;
+    const { itemId, answer, name ,question } = req.body;
 
-    const response = new Response({
-      author: authorId,
+    if (!itemId || !answer || !name) {
+      return res.status(403).json({
+        error: "Please fill up all fields",
+      });
+    }
+    if (!req.user || !req.user._id) {
+      return res.status(403).json({ error: "User not authenticated" });
+    }
+
+    const newResponse = new Response({
+      author: req.user._id,
       item: itemId,
-      answer: answer,
+      answer,
+      name,
+      question
     });
 
-    const savedResponse = await response.save();
+    const savedResponse = await newResponse.save();
 
     res.status(201).json(savedResponse);
   } catch (error) {
@@ -19,6 +30,24 @@ const createResponse = async (req, res) => {
     res.status(500).json({ error: "Could not create response" });
   }
 };
+
+const getResponsesForAuthor = async (req, res) => {
+  try {
+    if (!req.user || !req.user._id) {
+      return res.status(403).json({ error: "User not authenticated" });
+    }
+
+    const authorId = req.user._id; 
+
+    const responses = await Response.find({ author: authorId });
+
+    res.status(200).json(responses);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 const acceptResponse=async (req, res) => {
     try {
       const { responseId } = req.params;
@@ -42,4 +71,4 @@ const acceptResponse=async (req, res) => {
     }
   }
 
-  export { createResponse, acceptResponse };
+  export { createResponse, acceptResponse,getResponsesForAuthor };

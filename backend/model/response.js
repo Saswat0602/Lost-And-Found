@@ -17,13 +17,17 @@ const responseSchema = new Schema({
     type: String,
     required: true,
   },
+  name: {
+    type: String,
+    required: true,
+  },
   answer: {
     type: String,
     required: true,
   },
   responseBack: {
     type: String,
-    required: true,
+    default: "",
   },
   confirmation: {
     type: Boolean,

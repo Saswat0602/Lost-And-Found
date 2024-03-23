@@ -61,7 +61,7 @@ const getItemsForUser = async (req, res) => {
       return res.status(403).json({ error: "User not authenticated" });
     }
 
-    const userId = req.user._id; // Retrieve user ID from req.user
+    const userId = req.user._id;
 
     // Fetch items where author ID matches the user ID
     const items = await Item.find({ author: userId });

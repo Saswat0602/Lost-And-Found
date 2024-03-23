@@ -7,6 +7,7 @@ import helmet from "helmet";
 import bodyParser from "body-parser";
 import user from "./routes/user.js";
 import item from "./routes/item.js"
+import response from "./routes/response.js"
 import cors from "cors";
 dotenv.config();
 const app = express();
@@ -20,6 +21,7 @@ app.use(cors());
 
 app.use(user);
 app.use(item);
+app.use(response);
 
 mongoose.set("strictQuery", false);
 mongoose
