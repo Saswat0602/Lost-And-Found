@@ -5,6 +5,7 @@ import "../css/feed.css";
 import Axios from "axios";
 import lostfound from "../assets/bgimage.jpg";
 import LoaderSkeleton from "../Components/LoaderSkeleton";
+import { Link } from "react-router-dom";
 export default function Feed() {
   const [user_info, setuser_info] = useState({
     name: JSON.parse(localStorage.getItem("name")) || "",
@@ -67,13 +68,17 @@ export default function Feed() {
   // Function to render lost items in rows of four
   const renderLostItems = () => {
     return lostItems.map((item, index) => (
-      <div key={index} className="item-card">
+      <Link
+        to={`/feed/item/${item?._id}`}
+        key={index}
+        className="item-card no-underline"
+      >
         <img src={lostfound} alt="" />
-        <h4> Name of item :{item?.name}</h4>
-        <p>Question: {item?.question}</p>
-        <p>Item Descriptions:{item?.description}</p>
+        <h4 className="text-start"> Name of item :{item?.name}</h4>
+        <p className="text-start">Question: {item?.question}</p>
+        <p className="text-start">Item Descriptions:{item?.description}</p>
         <p>Created At: {formatDate(item?.createdAt)}</p>
-      </div>
+      </Link>
     ));
   };
 

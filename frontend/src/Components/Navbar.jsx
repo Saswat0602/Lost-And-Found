@@ -61,7 +61,7 @@ function Navbar() {
 
         <div style={token ? {} : { display: "none" }} className="postsignin">
           <button
-            className={`rounded-md px-4 py-2 ${
+            className={`rounded-md px-4 py-2 hover:bg-slate-300 transition ease-in-out duration-300 ${
               showPostModal ? "bg-sky-300" : "bg-sky-600"
             }`}
             onClick={() => {
@@ -74,25 +74,25 @@ function Navbar() {
           <ul style={{ paddingLeft: 0 }}>
             <Link
               to="/feed"
-              className="text-white  no-underline hover:underline  hover:text-gray-700"
+              className="text-white  no-underline hover:underline  hover:text-gray-700 transition ease-in-out duration-300"
             >
               Feed
             </Link>
             <Link
               to="/responses"
-              className="text-white  no-underline hover:underline  hover:text-gray-700"
+              className="text-white  no-underline hover:underline  hover:text-gray-700 transition ease-in-out duration-300"
             >
               Responses
             </Link>
             <Link
               to="/mylistings"
-              className="text-white  no-underline hover:underline  hover:text-gray-700"
+              className="text-white  no-underline hover:underline  hover:text-gray-700 transition ease-in-out duration-300"
             >
               My Listings
             </Link>
             <Link
               to="/log-in"
-              className="text-white  no-underline hover:underline  hover:text-gray-700"
+              className="text-white  no-underline hover:underline  hover:text-gray-700 transition ease-in-out duration-300"
               onClick={signout}
             >
               Sign-out

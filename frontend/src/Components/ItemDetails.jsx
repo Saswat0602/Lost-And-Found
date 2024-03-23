@@ -169,7 +169,7 @@ const ItemDetails = () => {
               <span className="text-2xl">{formatDate(property?.createdAt)}</span>
             </h2>
 
-            {JSON.parse(id) === property.author && (
+            {JSON.parse(id) === property.author ? (
               <div className="flex justify-center mt-4">
                 <button
                   onClick={handleEditProperty}
@@ -184,6 +184,11 @@ const ItemDetails = () => {
                   Delete Property
                 </button>
               </div>
+            ):(
+              <div>
+                <button className="bg-blue-500 px-2  py-2">Found Item</button>
+              </div>
+            
             )}
           </div>
         </div>

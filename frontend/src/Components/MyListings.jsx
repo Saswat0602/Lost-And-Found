@@ -4,33 +4,35 @@ import "../css/feed.css";
 import "../css/mylisting.css";
 import Axios from "axios";
 import lostfound from "../assets/bgimage.jpg";
-import LoaderSkeleton from "../Components/LoaderSkeleton"
+import LoaderSkeleton from "../Components/LoaderSkeleton";
 import { Link } from "react-router-dom";
 
 export default function Feed() {
   const [lostItems, setLostItems] = useState([]);
   const token = localStorage.getItem("token");
-const [Loading, setLoading] = useState(true)
+  const [Loading, setLoading] = useState(true);
   useEffect(() => {
     // Define a function to fetch user's items
     const fetchUserItems = async () => {
       try {
         const config = {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         };
-        const response = await Axios.get("http://localhost:5000/api/getItemsForUser", config);
-        setLostItems(response.data); 
-        setLoading(false)
+        const response = await Axios.get(
+          "http://localhost:5000/api/getItemsForUser",
+          config
+        );
+        setLostItems(response.data);
+        setLoading(false);
       } catch (error) {
-        setLoading(false)
+        setLoading(false);
         console.error("Error fetching user's items:", error);
       }
     };
-    fetchUserItems(); 
+    fetchUserItems();
   }, []);
-
 
   function formatDate(dateString) {
     const months = [
@@ -68,23 +70,27 @@ const [Loading, setLoading] = useState(true)
   // Function to render lost items in rows of four
   const renderLostItems = () => {
     return lostItems.map((item, index) => (
-      <Link to={`item/${item?._id}`} key={index} className="item-card no-underline">
+      <Link
+        to={`/mylistings/item/${item?._id}`}
+        key={index}
+        className="item-card no-underline"
+      >
         <img src={lostfound} alt="" />
-        <h4> Name of item :{item?.name}</h4>
-        <p>Question: {item?.question}</p>
-        <p>Item Descriptions:{item?.description}</p>
+        <h4 className="text-start"> Name of item :{item?.name}</h4>
+        <p className="text-start">Question: {item?.question}</p>
+        <p className="text-start">Item Descriptions:{item?.description}</p>
         <p>Created At: {formatDate(item?.createdAt)}</p>
       </Link>
     ));
   };
-  
+
   return (
     <div>
       <Navbar />
       {Loading ? (
         <LoaderSkeleton />
       ) : (
-        <div>
+        <div className="pb-12">
           <div className="listing-title">
             <h2>My Listings</h2>
             <div className="title-border"></div>
@@ -94,5 +100,4 @@ const [Loading, setLoading] = useState(true)
       )}
     </div>
   );
-};
-
+}

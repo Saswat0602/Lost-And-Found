@@ -39,7 +39,7 @@ function App() {
             <Route path="/log-in" element={<Login />} />
             <Route path="/mylistings" element={<MyListings />} />
             <Route path="/responses" element={<Response />} />
-            <Route path="/mylistings/item/:itemID" element={<ItemDetails />} />
+            <Route path="/:pageName/item/:itemID" element={<ItemDetails />} />
             <Route path="/feed" element={<Feed />} />
             <Route path="*" element={<NotFound />} />
 
