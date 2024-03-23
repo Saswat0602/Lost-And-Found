@@ -9,17 +9,17 @@ import ResponseModal from "../widgets/ResponseModal";
 import "../css/feed.css";
 
 const ItemDetails = () => {
-  const { itemID } = useParams();
+  const { itemID, pageName } = useParams();
   const [property, setProperty] = useState(null);
   const [showUpdate, setShowUpdate] = useState(false);
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const { showResponseModal, setResponseModal } = ProjectCotext();
-const userName = localStorage.getItem("name")
+  const userName = localStorage.getItem("name");
   const [message, setMessage] = useState("");
   const [responseData, setResponseData] = useState([]);
   const id = localStorage.getItem("user");
   const navigate = useNavigate();
-
+  console.log(pageName, "pageName");
   useEffect(() => {
     fetch(`http://localhost:5000/api/getItemById/${itemID}`)
       .then((response) => response.json())
@@ -235,17 +235,21 @@ const userName = localStorage.getItem("name")
           Back to Listing item List
         </button>
 
-        <div className="w-full pb-10 min-h-[300px]">
-          <h3 className="text-center">Response Answers</h3>
-          <h4 className="text-start">
-            Question : <span>{property?.question}</span>
-          </h4>
-        </div>
-        {responseData?.length === 0 ? (
-          <h4>No Response Yet</h4>
-        ) : (
-          <div className="item-container">{renderResponse()}</div>
+        {pageName !== "feed" && (
+          <div className="w-full pb-10 min-h-[300px]">
+            <h3 className="text-center">Response Answers</h3>
+            <h4 className="text-start">
+              Question: <span>{property?.question}</span>
+            </h4>
+          </div>
         )}
+        {pageName !== "feed" ? (
+          responseData?.length === 0 ? (
+            <h4>No Response Yet</h4>
+          ) : (
+            <div className="item-container">{renderResponse()}</div>
+          )
+        ) : null}
 
         {/* {showUpdate && (
       <Update
