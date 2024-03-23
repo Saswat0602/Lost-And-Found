@@ -6,16 +6,16 @@ import Axios from "axios";
 import lostfound from "../assets/bgimage.jpg";
 import LoaderSkeleton from "../Components/LoaderSkeleton";
 import { Link } from "react-router-dom";
+import { ProjectCotext } from "../Context/ProjectCotext";
 export default function Feed() {
   const [user_info, setuser_info] = useState({
     name: JSON.parse(localStorage.getItem("name")) || "",
     id: JSON.parse(localStorage.getItem("user")) || "",
   });
 
-  const [lostItems, setLostItems] = useState([]);
-  const [foundItems, setFoundItems] = useState([]);
   const [Loading, setLoading] = useState(true);
-  setConstraint(true);
+  const { lostItems, setLostItems, foundItems, setFoundItems } =
+    ProjectCotext();
 
   useEffect(() => {
     Axios({
