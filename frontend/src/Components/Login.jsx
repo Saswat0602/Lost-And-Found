@@ -41,7 +41,6 @@ function Login() {
     })
     .then((response) => {
       if (response.data.token && response.data.userId) {
-        console.log(response.data,"response.data")
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", JSON.stringify(response.data.userId));
         localStorage.setItem("name", JSON.stringify(response.data.firstName));

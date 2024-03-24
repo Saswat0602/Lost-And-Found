@@ -36,7 +36,6 @@ const ResponseModal = (itemData) => {
           },
         }
       );
-      console.log("Response created:", response.data);
       toast.success("Response submitted successfully");
       setResponseModal(false);
     } catch (error) {

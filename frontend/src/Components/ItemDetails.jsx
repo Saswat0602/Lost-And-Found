@@ -21,7 +21,6 @@ const ItemDetails = () => {
   const [responseData, setResponseData] = useState([]);
   const id = localStorage.getItem("user");
   const number = localStorage.getItem("number")
-  console.log(JSON.parse(number),"nnnnnnnnnnnnnnnnnnnn")
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   useEffect(() => {
@@ -176,7 +175,6 @@ const ItemDetails = () => {
         contactInfo:contactInfoValue
       });
   
-      console.log('Response successfully updated:', response.data);
       toast.success("Response successfully updated", {
         position: "top-right",
         autoClose: 3000,

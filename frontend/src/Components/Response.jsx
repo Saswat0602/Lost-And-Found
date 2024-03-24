@@ -57,7 +57,6 @@ function Response() {
     setContactNumber(number);
     setShowNumber(true);
   };
-  console.log(response,"response")
   const renderResponse = () => {
     return response.map((item, index) => (
       <div

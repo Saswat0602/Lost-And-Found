@@ -24,13 +24,7 @@ const Home = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  // const postitem = () => {
-  //   if (localStorage.getItem("user") !== null) {
-  //     console.log("User already logged in !");
-  //   } else {
-  //     console.log("Not logged in");
-  //   }
-  // };
+
   const ref = useRef();
 
   const sendMessage = () => {

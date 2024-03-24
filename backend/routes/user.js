@@ -16,15 +16,7 @@ router.post("/api/login",login);
 
 // Route for updating user information
 router.put("/api/login/:id", async (req, res) => {
-  console.log(req.body);
 });
 
-// Route for allitms page
-// router.get("/api/allitems", validate, (req, res) => {
-//   console.log(req.correctUser);
-
-//   const finalUser = req.correctUser;
-//   res.send(finalUser);
-// });
 
 export default router;
