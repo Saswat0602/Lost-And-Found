@@ -126,7 +126,7 @@ const ItemDetails = () => {
     setIsConfirmationOpen(false);
     handleDeleteItem();
   };
-
+console.log(responseData,"responseData")
   function formatDate(dateString) {
     const months = [
       "Jan",
@@ -166,7 +166,20 @@ const ItemDetails = () => {
       </div>
     );
   }
-  const handleResponseBack = async (value, id) => {
+  const handleResponseBack = async (value, id,confirmation) => {
+    if(confirmation){
+      toast.warn("You Already give response for this", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      return
+    }
     try {
       let contactInfoValue = value ? JSON.parse(number) : "";
       const response = await axios.put(`http://localhost:5000/api/responses/${id}/responseBack`, {
@@ -207,8 +220,20 @@ const ItemDetails = () => {
         </h4>
         <div className="flex justify-start">
           <h5 className="">validate :</h5>
-          <button className="px-2 py-1 rounded-md bg-blue-400 hover:bg-blue-300 ml-4" onClick={() => handleResponseBack(true, item?._id)}>Yes</button>
-          <button className="px-2 py-1 rounded-md bg-red-400 hover:bg-red-300 ml-4" onClick={() => handleResponseBack(false, item?._id)}>No</button>
+          <button 
+            className="px-2 py-1 rounded-md bg-blue-400 hover:bg-blue-300 ml-4" 
+            onClick={() => handleResponseBack(true, item?._id,item.confirmation)} 
+            style={{ opacity: item.confirmation ? '0.5' : '1' }} 
+          >
+            Yes
+          </button>
+          <button 
+            className="px-2 py-1 rounded-md bg-red-400 hover:bg-red-300 ml-4" 
+            onClick={() => handleResponseBack(false, item?._id,item.confirmation)} 
+            style={{ opacity: item.confirmation ? '0.5' : '1' }} 
+          >
+            No
+          </button>
         </div>
   
         <h6 className="mt-3 text-right">
@@ -220,6 +245,8 @@ const ItemDetails = () => {
       </div>
     ));
   };
+  
+  
   
   return (
     <>
