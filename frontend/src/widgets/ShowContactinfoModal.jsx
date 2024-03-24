@@ -21,7 +21,7 @@ const ShowContactinfoModal = ({ isOpen, contactNumber, onCancel }) => {
       style={{
         content: {
           position: "absolute",
-          top: "50%",
+          top: "18%",
           left: "50%",
           transform: "translate(-50%, -50%)",
           backgroundColor: "white",
@@ -30,7 +30,7 @@ const ShowContactinfoModal = ({ isOpen, contactNumber, onCancel }) => {
           boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)",
           zIndex: 1000,
           width: "350px",
-          height: "170px",
+          height: "150px",
         },
         overlay: {
           position: "fixed",
@@ -50,16 +50,15 @@ const ShowContactinfoModal = ({ isOpen, contactNumber, onCancel }) => {
             onClick={onCancel}
             className="py-2 px-2 rounded-md bg-red-300 hover:bg-slate-300"
           >
-            cansel
+            cancel
           </button>
           <button
             className="bg-blue-300 py-2 px-2 rounded-md hover:bg-slate-300"
             onClick={() => copyToClipboard(contactNumber)}
           >
-            Okey
+            Copy number
           </button>
         </div>
-        <p className="text-center">Click ok to copy the Phone number</p>
       </div>
     </Modal>
   );
