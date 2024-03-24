@@ -52,9 +52,9 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      <div className="bg-sky-100">
+      <div>
       <div className="main">
-        <div className="intro">
+        <div className="intro bg-sky-100">
           <div className="part-1">
             <div className="title">
               <h1 id="title-h">Lost and Found</h1>

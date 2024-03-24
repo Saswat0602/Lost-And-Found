@@ -22,19 +22,22 @@ const itemSchema = new Schema({
     type: String,
     required: true,
   },
-  imgUri:  {
-    type: [String], 
+  imgUri: {
+    type: [String],
     required: true,
   },
   thumbnailUrl: {
-    type: [String], 
+    type: [String],
     required: true,
   },
+  // allResponse: {
+  //   type: [String],
+  //   default: [],
+  // },
   createdAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
-  
 });
 
 const Item = mongoose.model("Item", itemSchema);
