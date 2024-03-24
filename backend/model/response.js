@@ -33,6 +33,10 @@ const responseSchema = new Schema({
     type: String,
     default: "",
   },
+    contactInfo: {
+    type: String,
+    default: "",
+  },
   confirmation: {
     type: Boolean,
     default: false,

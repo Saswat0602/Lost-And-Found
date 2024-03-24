@@ -51,11 +51,11 @@ const getResponsesForAuthor = async (req, res) => {
 
 const acceptResponse = async (req, res) => {
   try {
-    const { responseBack, responseId } = req.body;
+    const { responseBack, responseId,contactInfo } = req.body;
 
     const response = await Response.findByIdAndUpdate(
       responseId,
-      { responseBack: responseBack, confirmation: true },
+      { responseBack: responseBack, confirmation: true,contactInfo:contactInfo },
       { new: true }
     );
 

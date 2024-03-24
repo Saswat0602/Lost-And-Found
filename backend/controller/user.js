@@ -48,6 +48,7 @@ const login = async (req, res) => {
             firstName: findEmail.firstname, 
             token: userToken,
             userId: userId,
+            number:findEmail.number,
           });
         }
       }

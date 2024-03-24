@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import "../css/myresponses.css";
 import Axios from "axios";
-
+import ShowContactinfoModal from "../widgets/ShowContactinfoModal";
 function Response() {
   const [response, setResponse] = useState([]);
   const [showNumber, setShowNumber] = useState(false);
-  const [PhoneNumber, setPhoneNumber] = useState("");
   const token = localStorage.getItem("token");
   const [Loading, setLoading] = useState(true);
-
+  const [contactNumber, setContactNumber] = useState(null);
   const handleCloseNumber = () => {
     setShowNumber(false);
   };
@@ -53,10 +52,16 @@ function Response() {
 
     return formattedDate;
   }
-
+  const handleShowNumber = (number) => {
+    setContactNumber(number);
+    setShowNumber(true);
+  };
   const renderResponse = () => {
     return response.map((item, index) => (
-      <div className="w-[400px] bg-slate-100 min-h-[200px] rounded-md p-2 border border-black shadow-md ">
+      <div
+        key={index}
+        className="w-[400px] bg-slate-100 min-h-[200px] rounded-md p-2 border border-black shadow-md "
+      >
         <p>
           Item Name :<span>{item.itemName ?? item?._id}</span>
         </p>
@@ -72,16 +77,23 @@ function Response() {
         <p>
           Status:{" "}
           <span
-            className={`bg-${
-              item.confirmation ? "green" : "blue"
-            }-400 px-2 rounded-3xl py-1`}
+            className={`${
+              item.confirmation ? "bg-green-400" : "bg-blue-400"
+            } px-2 rounded-3xl py-1`}
           >
-            {item.confirmation ? "Response" : "Moderation"}
+            {item.confirmation ? "Got A Response" : "Moderation"}
           </span>
         </p>
-        {item.confirmation && (
-          <button className="text-blue-500">Click to get Contact Num...</button>
-        )}
+        <div>
+          {item.confirmation && (
+            <button
+              className="text-blue-500"
+              onClick={() => handleShowNumber(item?.contactInfo)}
+            >
+              Click to get Contact Num...
+            </button>
+          )}
+        </div>
       </div>
     ));
   };
@@ -94,6 +106,12 @@ function Response() {
         <div className="flex flex-wrap justify-start px-4 gap-4 mt-4">
           {renderResponse()}
         </div>
+      
+          <ShowContactinfoModal
+            isOpen={showNumber}
+            contactNumber={contactNumber}
+            onCancel={handleCloseNumber}
+          />
       </div>
     </>
   );

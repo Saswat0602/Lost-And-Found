@@ -20,6 +20,8 @@ const ItemDetails = () => {
   const [message, setMessage] = useState("");
   const [responseData, setResponseData] = useState([]);
   const id = localStorage.getItem("user");
+  const number = localStorage.getItem("number")
+  console.log(JSON.parse(number),"nnnnnnnnnnnnnnnnnnnn")
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   useEffect(() => {
@@ -169,7 +171,8 @@ const ItemDetails = () => {
     try {
       const response = await axios.put(`http://localhost:5000/api/responses/${id}/responseBack`, {
         responseBack: value ? 'yes' : 'no',
-        responseId: id
+        responseId: id,
+        contactInfo:JSON.parse(number)
       });
   
       console.log('Response successfully updated:', response.data);
