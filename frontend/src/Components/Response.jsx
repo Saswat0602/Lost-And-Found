@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import "../css/myresponses.css";
 import Axios from "axios";
 import ShowContactinfoModal from "../widgets/ShowContactinfoModal";
+import Spinner from "../widgets/Spinner";
 function Response() {
   const [response, setResponse] = useState([]);
   const [showNumber, setShowNumber] = useState(false);
@@ -101,17 +102,26 @@ function Response() {
   return (
     <>
       <Navbar />
+      {Loading && (
+        <div className="flex justify-center items-center h-screen">
+          <Spinner />
+        </div>
+      )}
+      {response.length === 0 && (
+        <div className="flex justify-center items-center h-screen">
+          <h1 className="text-center">You have Post no response yet.</h1>
+        </div>
+      )}
       <div>
         <h2 className="text-center underline">Your Response</h2>
         <div className="flex flex-wrap justify-start px-4 gap-4 mt-4">
           {renderResponse()}
         </div>
-      
-          <ShowContactinfoModal
-            isOpen={showNumber}
-            contactNumber={contactNumber}
-            onCancel={handleCloseNumber}
-          />
+        <ShowContactinfoModal
+          isOpen={showNumber}
+          contactNumber={contactNumber}
+          onCancel={handleCloseNumber}
+        />
       </div>
     </>
   );
