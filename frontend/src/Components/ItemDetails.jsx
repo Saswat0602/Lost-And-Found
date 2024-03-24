@@ -169,10 +169,11 @@ const ItemDetails = () => {
   }
   const handleResponseBack = async (value, id) => {
     try {
+      let contactInfoValue = value ? JSON.parse(number) : "";
       const response = await axios.put(`http://localhost:5000/api/responses/${id}/responseBack`, {
         responseBack: value ? 'yes' : 'no',
         responseId: id,
-        contactInfo:JSON.parse(number)
+        contactInfo:contactInfoValue
       });
   
       console.log('Response successfully updated:', response.data);

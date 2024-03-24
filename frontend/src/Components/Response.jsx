@@ -57,6 +57,7 @@ function Response() {
     setContactNumber(number);
     setShowNumber(true);
   };
+  console.log(response,"response")
   const renderResponse = () => {
     return response.map((item, index) => (
       <div
@@ -86,14 +87,22 @@ function Response() {
           </span>
         </p>
         <div>
-          {item.confirmation && (
-            <button
-              className="text-blue-500"
-              onClick={() => handleShowNumber(item?.contactInfo)}
-            >
-              Click to get Contact Num...
-            </button>
-          )}
+        <div>
+        {item.confirmation && (
+          <>
+            {item.responseBack === "yes" ? (
+              <button
+                className="text-blue-500"
+                onClick={() => handleShowNumber(item?.contactInfo)}
+              >
+                Click to get Contact Num...
+              </button>
+            ) : (
+              <p>Sorry, it's not the Item.</p>
+            )}
+          </>
+        )}
+      </div>
         </div>
       </div>
     ));
