@@ -1,13 +1,11 @@
 import multer from 'multer';
 import express from "express";
-import multerS3 from "multerS3";
-import aws from "aws";
-const express = require('express')
-const multer = require('multer')
-const multerS3 = require('multer.s3')
-const aws = require('aws-sdk')
+import multerS3 from 'multer-s3';
+import dotenv from "dotenv";
+import AWS from 'aws-sdk';
 
-require('dotenv').config();
+dotenv.config();
+
 
 const BUCKET_NAME = process.env.BUCKET_NAME;
 const REGION = process.env.REGION;
@@ -37,7 +35,7 @@ const uploadWithMulter = () =>multer({
     })
 }).array("s3Images",2)
 
-uploadToAws = (req, res) =>{
+const uploadToAws = (req, res) =>{
     const upload = uploadWithMulter();
 
     upload(req, res, err=>{
@@ -54,4 +52,4 @@ const router = express.Router();
 
 router.post('/upload',uploadToAws)
 
-module.exports = router;
+export default router;

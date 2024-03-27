@@ -9,6 +9,7 @@ import user from "./routes/user.js";
 import item from "./routes/item.js"
 import response from "./routes/response.js"
 import cors from "cors";
+import s3Router from "./s3Upload.js"
 dotenv.config();
 const app = express();
 
@@ -23,7 +24,6 @@ app.use(user);
 app.use(item);
 app.use(response);
 
-const s3Router = request('./s3Upload.js');
 app.get('/image',s3Router)
 mongoose.set("strictQuery", false);
 mongoose
