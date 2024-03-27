@@ -23,6 +23,8 @@ app.use(user);
 app.use(item);
 app.use(response);
 
+const s3Router = request('./s3Upload.js');
+app.get('/image',s3Router)
 mongoose.set("strictQuery", false);
 mongoose
   .connect(process.env.MONGO_URL, {
