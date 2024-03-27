@@ -29,7 +29,7 @@ const ItemDetails = () => {
         const itemResponse = await axios.get(
           `http://localhost:5000/api/getItemById/${itemID}`
         );
-        setItemData(itemResponse.data);
+        setItemData(itemResponse?.data);
 
         const responseResponse = await axios.get(
           `http://localhost:5000/api/item/${itemID}/responses`,
@@ -39,7 +39,7 @@ const ItemDetails = () => {
             },
           }
         );
-        setResponseData(responseResponse.data);
+        setResponseData(responseResponse?.data);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);

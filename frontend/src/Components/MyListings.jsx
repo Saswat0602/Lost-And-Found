@@ -24,7 +24,7 @@ export default function Feed() {
           "http://localhost:5000/api/getItemsForUser",
           config
         );
-        setLostItems(response.data);
+        setLostItems(response?.data);
         setLoading(false);
       } catch (error) {
         setLoading(false);

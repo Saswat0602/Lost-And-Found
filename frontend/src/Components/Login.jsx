@@ -40,14 +40,14 @@ function Login() {
       },
     })
     .then((response) => {
-      if (response.data.token && response.data.userId) {
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("user", JSON.stringify(response.data.userId));
-        localStorage.setItem("name", JSON.stringify(response.data.firstName));
-        localStorage.setItem("number", JSON.stringify(response.data.number));
+      if (response?.data?.token && response?.data?.userId) {
+        localStorage.setItem("token", response?.data?.token);
+        localStorage.setItem("user", JSON.stringify(response?.data?.userId));
+        localStorage.setItem("name", JSON.stringify(response?.data?.firstName));
+        localStorage.setItem("number", JSON.stringify(response?.data?.number));
         navigate("/feed");
       } else {
-        toast.error(response.data.msg || "Invalid credentials", {
+        toast.error(response?.data?.msg || "Invalid credentials", {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -61,7 +61,7 @@ function Login() {
     })
     .catch((error) => {
       setLoading(false);
-      toast.error(error.response.data.msg, {
+      toast.error(error?.response?.data?.msg, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

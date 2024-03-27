@@ -40,10 +40,10 @@ function Signup(props) {
       data: payload,
     })
       .then((response) => {
-        setInfo(response.data);
-        if (response.data.msg === "User created successfully") {
+        setInfo(response?.data);
+        if (response?.data.msg === "User created successfully") {
           navigate("/log-in");
-          toast.success(response.data.msg, {
+          toast.success(response?.data?.msg, {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,
@@ -56,7 +56,7 @@ function Signup(props) {
       })
       .catch((error) => {
         if (error.response) {
-          const errorMessage = error.response.data.error || error.response.data.msg || "An error occurred";
+          const errorMessage = error?.response?.data?.error || error?.response?.data?.msg || "An error occurred";
           toast.error(errorMessage, {
             position: "top-right",
             autoClose: 3000,

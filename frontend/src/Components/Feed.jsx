@@ -23,14 +23,14 @@ export default function Feed() {
       method: "GET",
     })
       .then((response) => {
-        let data = response.data;
+        let data = response?.data;
 
         // Filter items based on type
-        const foundItems = data.filter(
-          (item) => item.type === "found" || item.type === "Found"
+        const foundItems = data?.filter(
+          (item) => item.type === "found" || item?.type === "Found"
         );
-        const lostItems = data.filter(
-          (item) => item.type !== "found" && item.type !== "Found"
+        const lostItems = data?.filter(
+          (item) => item?.type !== "found" && item?.type !== "Found"
         );
 
         // Set filtered items to state variables
@@ -78,7 +78,7 @@ export default function Feed() {
 
   // Function to render lost items in rows of four
   const renderLostItems = (data) => {
-    return data.map((item, index) => (
+    return data?.map((item, index) => (
       <Link
         to={`/feed/item/${item?._id}`}
         key={index}
