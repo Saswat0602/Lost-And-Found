@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.540.0",
+    "@aws-sdk/client-s3-node": "^0.1.0-preview.2",
     "aws-sdk": "^2.1582.0",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",

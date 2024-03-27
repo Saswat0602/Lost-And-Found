@@ -24,7 +24,8 @@ app.use(user);
 app.use(item);
 app.use(response);
 
-app.get('/image',s3Router)
+app.use(s3Router)
+
 mongoose.set("strictQuery", false);
 mongoose
   .connect(process.env.MONGO_URL, {
