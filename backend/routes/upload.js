@@ -73,7 +73,7 @@
 import express from "express";
 import multer from "multer";
 import { v4 as uuidv4 } from "uuid";
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand,ListBucketsCommand } from "@aws-sdk/client-s3";
 
 const router = express.Router();
 const upload = multer();
@@ -83,6 +83,7 @@ const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
 const AWS_REGION = process.env.REGION;
 const AWS_BUCKET = process.env.BUCKET_NAME;
 
+
 const s3Client = new S3Client({
   credentials: {
     accessKeyId: AWS_ACCESS_KEY_ID,
@@ -91,12 +92,22 @@ const s3Client = new S3Client({
   region: AWS_REGION
 });
 
+(async () => {
+  try {
+    const response = await s3Client.send(new ListBucketsCommand({}));
+    console.log("Connection to S3 established. List of buckets:", response.Buckets);
+  } catch (error) {
+    console.error("Error connecting to S3:", error);
+  }
+})();
+
 router.post('/uploads', upload.array('images'), async (req, res) => {
   const images = req.files;
 
   const uploadedImageURLs = [];
 
   const uploadImage = async (image) => {
+    console.log(image,"image-------------------")
     const uuid = uuidv4(); // Generate UUID for the image
     const params = {
       Bucket: AWS_BUCKET,
@@ -107,12 +118,9 @@ router.post('/uploads', upload.array('images'), async (req, res) => {
 
     try {
       const command = new PutObjectCommand(params);
-      console.log(params,"params")
-      console.log(command,"command")
       await s3Client.send(command);
       const imageURL = `https://${AWS_BUCKET}.s3.amazonaws.com/${uuid}/${image.originalname}`;
       uploadedImageURLs.push(imageURL);
-      console.log("11111111")
     } catch (err) {
       throw err;
     }
