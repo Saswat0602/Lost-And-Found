@@ -10,6 +10,7 @@ import item from "./routes/item.js"
 import response from "./routes/response.js"
 import cors from "cors";
 import s3Router from "./s3Upload.js"
+import upload from "./routes/upload.js"
 dotenv.config();
 const app = express();
 
@@ -22,9 +23,9 @@ app.use(cors());
 
 app.use(user);
 app.use(item);
-app.use(response);
-
-app.use(s3Router)
+app.use(response);  
+app.use(upload)
+// app.use(s3Router)
 
 mongoose.set("strictQuery", false);
 mongoose
