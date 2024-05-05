@@ -9,7 +9,7 @@ import user from "./routes/user.js";
 import item from "./routes/item.js"
 import response from "./routes/response.js"
 import cors from "cors";
-import s3Router from "./s3Upload.js"
+// import s3Router from "./s3Upload.js"
 import upload from "./routes/upload.js"
 dotenv.config();
 const app = express();
