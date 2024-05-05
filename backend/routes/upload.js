@@ -1,9 +1,9 @@
-// // import uploadHandler from "../controller/uploadHandler.js"
+// import uploadHandler from "../controller/uploadHandler.js"
 // import express from "express";
 // const router = express.Router();
-// // router.post('/api/upload', uploadHandler);11111111
-
-// // uploadHandler.js
+// router.post('/api/upload', uploadHandler);
+// export default router;
+// uploadHandler.js
 
 // import { v4 as uuidv4 } from "uuid";
 // import multer from "multer";

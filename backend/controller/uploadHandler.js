@@ -2,7 +2,7 @@
 
 import { v4 as uuidv4 } from "uuid";
 import multer from "multer";
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand,ListBucketsCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
@@ -17,6 +17,16 @@ const s3Client = new S3Client({
     secretAccessKey: AWS_SECRET_ACCESS_KEY,
   },
 });
+
+(async () => {
+  try {
+    const response = await s3Client.send(new ListBucketsCommand({}));
+    console.log("Connection to S3 established. List of buckets:", response.Buckets);
+  } catch (error) {
+    console.error("Error connecting to S3:", error);
+  }
+})();
+
 
 const uploadHandler = async (req, res) => {
   const upload = multer();

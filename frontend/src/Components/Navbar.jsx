@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { ProjectCotext } from "../Context/ProjectCotext";
 import AddItemModal from "./AddItemModal"
+import cloud from "../assets/clouds.svg"
 function Navbar() {
   const token = window.localStorage.getItem("token");
   const { showPostModal, setShowPostModal } = ProjectCotext();
@@ -30,9 +31,10 @@ function Navbar() {
         <div className="logo">
           <Link
             to="/"
-            className="text-white  no-underline hover:underline  hover:text-gray-700"
+            className="text-white  no-underline hover:underline flex justify-center flex-row gap-2 align-middle  hover:text-gray-700"
           >
             <h2>Lost and Found</h2>
+          <img src={cloud} alt="Cloud" className="cloud-icon" />
           </Link>
         </div>
 
